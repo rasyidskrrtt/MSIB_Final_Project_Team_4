@@ -59,7 +59,7 @@ const Regist = () => {
         <HStack w={"100vw"} h={"100%"} >
             {/* Side Section */}
             <Box w={"30%"} bg={"#367236"} h={"100%"} display="flex" alignItems="center" justifyContent="center">
-                <Text color={"white"} fontSize={"4xl"} fontStyle={"italic"}>UltiGear!</Text>
+            <Text color={"white"} fontSize="7xl" fontWeight="medium" fontFamily="'Covered By Your Grace', cursive">UltiGear!</Text>
             </Box>
 
             {/* Form Section */}
