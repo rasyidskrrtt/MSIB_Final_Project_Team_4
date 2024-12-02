@@ -30,7 +30,7 @@ const Login = () => {
         <HStack w={"100vw"} >
             {/* Side Section */}
             <Box w={"30%"} bg={"#367236"} h={"100vh"} display="flex" alignItems="center" justifyContent="center">
-                <Text color={"white"} fontSize={"4xl"} fontStyle={"italic"}>UltiGear!</Text>
+            <Text color={"white"} fontSize="7xl" fontWeight="medium" fontFamily="'Covered By Your Grace', cursive">UltiGear!</Text>
             </Box>
 
             {/* Form Section */}
