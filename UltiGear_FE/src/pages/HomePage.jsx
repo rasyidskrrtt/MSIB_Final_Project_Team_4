@@ -1,9 +1,9 @@
 import React from 'react'
 import Layout from './Layout'
-import { Box, HStack, Image, Input, InputGroup, InputRightAddon, Text, VStack } from '@chakra-ui/react'
-import { IoSearch } from "react-icons/io5";
+import { Box, HStack, Image, Text, VStack } from '@chakra-ui/react'
 import SideBarSection from '../components/SideBarSection';
 import { FiPlusCircle } from "react-icons/fi";
+import Search from '../components/Search';
 
 const HomePage = () => {
   
@@ -22,13 +22,7 @@ const HomePage = () => {
               height="100vh" 
             >
               {/* Header */}
-              <HStack width="100%" justifyContent="space-between ">
-                <Text color={"#367236"} fontSize="3xl" fontWeight="medium" fontFamily="'Covered By Your Grace', cursive">UltiGear!</Text>
-                <InputGroup width={"40%"} borderColor={"black"}>
-                  <Input placeholder='Search on Here'/>
-                  <InputRightAddon bgColor={"#367236"} color={"white"}> <IoSearch /> </InputRightAddon>
-                </InputGroup>
-              </HStack>
+              <Search />
 
               {/* Banner */}
               <Box bg="#367236"
@@ -37,12 +31,15 @@ const HomePage = () => {
                 padding="50px"
                 borderRadius="lg"
               > 
-                <HStack justify="center" align="center" h="100%" w="100%" spacing="16">
-                  <Text fontSize="8xl" fontWeight="medium" fontStyle="italic"
+                <HStack justify="center" align="center" h="100%" w="100%" 
+                  spacing={{ base: 8, md: 16 }} >
+                  <Text fontSize={{ base: '4xl', md: '8xl' }} fontWeight="medium" fontStyle="italic"
                     fontFamily="'Covered By Your Grace', cursive" lineHeight="1" 
                   >UltiGear!</Text>
-                  <Box orientation="vertical" borderColor="white" height="100%" borderWidth="3px" borderRadius="5px" />
-                  <Text fontSize="3xl" fontFamily="'Poppins', cursive" >Your Adventure Partner Stats Here</Text>
+                  <Box orientation="vertical" borderColor="white" 
+                    height="100%" borderWidth={{ base: '2px', md: '3px' }} borderRadius="5px" />
+                  <Text fontSize={{ base: 'xl', md: '3xl' }} fontFamily="'Poppins', cursive" >
+                    Your Adventure Partner Stats Here</Text>
                 </HStack>
               </Box>
 
