@@ -81,8 +81,8 @@ const userController = {
 
   async editProfile(req, res) {
     try {
-      const userIdFromToken = req.user._id; // ID pengguna dari token JWT
-      const userIdFromParams = req.params.id; // ID pengguna dari URL parameter
+      const userIdFromToken = req.user._id; 
+      const userIdFromParams = req.params.id;
 
       // Pastikan pengguna hanya dapat mengedit profil mereka sendiri
       if (userIdFromToken.toString() !== userIdFromParams) {
