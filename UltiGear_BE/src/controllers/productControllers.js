@@ -1,19 +1,33 @@
 const models = require('../models');
 const ResponseAPI = require('../utils/response');
+const { imageUpload } = require('../utils/imageUtil'); 
 
 const productControllers = {
-  // Create a new product
+  
   createProduct: async (req, res) => {
     try {
-      const { name, category, price, stock, image_url } = req.body;
-      const product = await models.Product.create({ name, category, price, stock, image_url }); //ini
+      const { name, category, price, stock } = req.body;
+      let image_url = null;
+
+      // Proses upload gambar ke Cloudinary
+      if (req.file) {
+        image_url = await imageUpload(req.file);
+      }
+
+      const product = await models.Product.create({
+        name,
+        category,
+        price,
+        stock,
+        image_url,
+      });
+
       return ResponseAPI.success(res, { product }, 'Product created successfully', 201);
     } catch (err) {
       return ResponseAPI.serverError(res, err);
     }
   },
 
-  // Get all products
   getAllProducts: async (req, res) => {
     try {
       const products = await models.Product.find();
@@ -23,7 +37,6 @@ const productControllers = {
     }
   },
 
-  // Get a product by ID
   getProductById: async (req, res) => {
     try {
       const product = await models.Product.findById(req.params.id);
@@ -36,25 +49,32 @@ const productControllers = {
     }
   },
 
-  // Update a product
   updateProduct: async (req, res) => {
     try {
-      const { name, category, price, stock, image_url } = req.body;
+      const { name, category, price, stock } = req.body;
+      let image_url = req.body.image_url;
+
+      // Proses upload gambar ke Cloudinary jika ada gambar baru
+      if (req.file) {
+        image_url = await imageUpload(req.file);
+      }
+
       const product = await models.Product.findByIdAndUpdate(
         req.params.id,
         { name, category, price, stock, image_url },
         { new: true }
       );
+
       if (!product) {
         return ResponseAPI.notFound(res, 'Product not found');
       }
+
       return ResponseAPI.success(res, { product }, 'Product updated successfully');
     } catch (err) {
       return ResponseAPI.serverError(res, err);
     }
   },
 
-  // Delete a product
   deleteProduct: async (req, res) => {
     try {
       const product = await models.Product.findByIdAndDelete(req.params.id);
@@ -65,7 +85,7 @@ const productControllers = {
     } catch (err) {
       return ResponseAPI.serverError(res, err);
     }
-  }
+  },
 };
 
 // Export semua controllers

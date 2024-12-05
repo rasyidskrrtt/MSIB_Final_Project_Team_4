@@ -2,7 +2,7 @@ const models = require('../models');
 const ResponseAPI = require('../utils/response');
 
 const orderControllers = {
-  // Create a new order
+
   createOrder: async (req, res) => {
     try {
       const { product_id, user_id, total_price, payment_status, payment_date } = req.body;
@@ -33,7 +33,6 @@ const orderControllers = {
     }
   },
 
-  // Get all orders
   getAllOrders: async (req, res) => {
     try {
       const orders = await models.Order.find()
@@ -45,7 +44,6 @@ const orderControllers = {
     }
   },
 
-  // Get an order by ID
   getOrderById: async (req, res) => {
     try {
       const order = await models.Order.findById(req.params.id)
@@ -60,8 +58,7 @@ const orderControllers = {
     }
   },
 
-  // Update the payment status of an order
-  updateOrderPaymentStatus: async (req, res) => { //masih eror
+  updateOrderPaymentStatus: async (req, res) => { 
     try {
       const { payment_status, payment_date } = req.body;
       const order = await models.Order.findByIdAndUpdate(
@@ -78,7 +75,6 @@ const orderControllers = {
     }
   },
 
-  // Delete an order
   deleteOrder: async (req, res) => {
     try {
       const order = await models.Order.findByIdAndDelete(req.params.id);
