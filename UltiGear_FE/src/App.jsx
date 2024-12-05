@@ -6,6 +6,8 @@ import Cart from './pages/Cart';
 import MyOrders from './pages/MyOrders';
 import EditProfile from './pages/EditProfile';
 import NotFound from './pages/NotFound';
+import AddToCard from './pages/AddToCard';
+import Product from './pages/Product';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/myorders" element={<MyOrders />} />
         <Route path="/EditProfile" element={<EditProfile />} />
         <Route path="/notfound" element={<NotFound />} />
+        <Route path="/addtocard" element={<AddToCard />} />
+        <Route path="/Product" element={<Product />} />
       </Routes>
     </Router>
   );
