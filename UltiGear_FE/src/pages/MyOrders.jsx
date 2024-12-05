@@ -86,7 +86,7 @@ const MyOrders = () => {
                             alignItems="center"
                             ml={{base: 0, md: 10}}
                         >
-                            <Text fontSize="3xl" align="center" fontWeight="extrabold">Explore More Product</Text>
+                            <Text fontSize="3xl" align="center" fontWeight="bold">Explore More Product</Text>
                             <Button bg="#367236" color="white" size="lg" w="30%" variant="unstyled"
                                 onClick={() => {
                                     navigate('/home')

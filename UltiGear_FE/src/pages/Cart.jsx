@@ -104,7 +104,7 @@ const Cart = () => {
                         </Button>
                     </VStack>
                 </HStack>
-                
+
            </VStack>
         </HStack>
     </Layout>

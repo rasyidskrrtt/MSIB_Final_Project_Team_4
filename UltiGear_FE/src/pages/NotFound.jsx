@@ -23,7 +23,7 @@ const NotFound = () => {
         {/* Header */}
         <HStack width="100%" justifyContent="space-between" p="4">
           <Text
-            color="green.700"
+            color="#367236"
             fontSize="3xl"
             fontWeight="medium"
             fontFamily="'Covered By Your Grace', cursive"
@@ -32,7 +32,7 @@ const NotFound = () => {
           </Text>
           <InputGroup width="40%" borderColor="gray.400">
             <Input placeholder="Search products..." value="Martabak manis" />
-            <InputRightAddon bgColor="green.600" color="white" cursor="pointer">
+            <InputRightAddon bgColor="#367236" color="white" cursor="pointer">
               Search
             </InputRightAddon>
           </InputGroup>
@@ -40,12 +40,11 @@ const NotFound = () => {
 
         {/* Product Not Found Section */}
         <VStack spacing="4" flex="1" justify="center" align="center">
-          <Box w="90%" h="200px" bg="gray.300" borderRadius="md" p="20%"></Box>
           <VStack spacing="2" textAlign="center">
             <Text fontSize="xl" fontWeight="bold">
               Sorry, product not found...
             </Text>
-            <Text fontSize="md" color="gray.600">
+            <Text fontSize="" color="gray.600">
               Try using another keyword
             </Text>
           </VStack>
