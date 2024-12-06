@@ -9,6 +9,10 @@ import NotFound from "./pages/NotFound";
 import Product from "./pages/Product";
 import PaymentMethod from "./pages/PaymentMethod";
 import Dashboard from "./pages/adminSection/Dashboard"; 
+import LoginAdmin from "./pages/adminSection/LoginAdmin";
+import CrudProduct from "./pages/adminSection/CrudProduct";
+import AddProduct from "./pages/adminSection/AddProduct";
+import EditProduct from "./pages/adminSection/EditProduct";
 
 function App() {
   return (
@@ -24,6 +28,10 @@ function App() {
         <Route path="/product" element={<Product />} />
         <Route path="/paymentmethod" element={<PaymentMethod />} />
         <Route path="/dashboard" element={<Dashboard />} /> 
+        <Route path="/loginadmin" element={<LoginAdmin />} /> 
+        <Route path="/crudproduct" element={<CrudProduct />} /> 
+        <Route path="/addproduct" element={<AddProduct />} />
+        <Route path="/editproduct" element={<EditProduct />} />  
       </Routes>
     </Router>
   );

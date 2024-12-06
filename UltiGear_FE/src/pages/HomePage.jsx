@@ -66,11 +66,11 @@ const HomePage = () => {
 
   const handleAddToCart = (product) => {
     setCart((prevCart) => [...prevCart, product]); 
-    navigate("/cart"); 
+    navigate("/product"); 
   };
 
   const handleProductClick = () => {
-    navigate("/Product"); 
+    // navigate("/Product"); 
   };
 
   return (

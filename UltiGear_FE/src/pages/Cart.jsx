@@ -3,9 +3,11 @@ import Layout from './Layout'
 import { Button, HStack, Image, Text, VStack } from '@chakra-ui/react'
 import SideBarSection from '../components/SideBarSection'
 import Search from '../components/Search'
+import { useNavigate } from 'react-router-dom'
 
 const Cart = () => {
-  return (
+    const navigate = useNavigate();
+    return (
     <Layout>
         <HStack align={"stretch"} height={"100vh"} w={"100vw"}
             flexWrap={{ base: 'wrap', md: 'nowrap' }}
@@ -99,7 +101,8 @@ const Cart = () => {
                             <Text fontSize="lg" fontWeight="bold">Total</Text>
                             <Text fontSize="lg" fontWeight="bold" color="#367236">$245</Text>
                         </HStack>
-                        <Button bg="#367236" color="white" size="lg" variant="unstyled">
+                        <Button bg="#367236" color="white" size="lg" variant="unstyled"
+                            onClick={() => navigate("/paymentMethod")}>
                         Buy Now
                         </Button>
                     </VStack>
