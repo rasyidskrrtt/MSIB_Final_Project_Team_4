@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import Layout from './Layout'
+import Layout from '../Layout'
 import { Box, Button, Input, Text, VStack, HStack, InputGroup, InputRightElement, Icon, useToast } from '@chakra-ui/react'
 import { FaCheck } from "react-icons/fa6";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const LoginAdmin = () => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
-    const toast = useToast();
+    const toast = useToast(); 
     const navigate = useNavigate()
 
     // / Regex untuk validasi email
@@ -18,15 +18,15 @@ const Login = () => {
 
     // kaalau ga pake alert, fungsi ini hapus aja
     const handleLogin = () => {
-       // Validasi jika email atau password kosong
+        // Validasi jika email atau password kosong
     if (!email || !password) {
         toast({
-          title: 'Input Missing',
-          description: 'Please fill out all fields before logging in.',
-          status: 'warning',
+          title: "Input Missing",
+          description: "Please fill out all fields before logging in.",
+          status: "warning",
           duration: 3000,
           isClosable: true,
-          position: 'top-right', 
+          position: "top-right",
         });
         return;
       }
@@ -34,27 +34,27 @@ const Login = () => {
       // Validasi email
       if (!validateEmail(email)) {
         toast({
-          title: 'Invalid Email',
-          description: 'Please enter a valid email address.',
-          status: 'error',
+          title: "Invalid Email",
+          description: "Please enter a valid email address.",
+          status: "error",
           duration: 3000,
           isClosable: true,
-          position: 'top-right', 
+          position: "top-right",
         });
         return;
       }
   
       // Jika validasi berhasil
       toast({
-        title: 'Login Successful',
-        description: 'Redirecting to home page...',
-        status: 'success',
+        title: "Login Successful",
+        description: "Redirecting to dashboard...",
+        status: "success",
         duration: 3000,
         isClosable: true,
-        position: 'top-right', 
+        position: "top-right",
       });
   
-      navigate('/home'); 
+      navigate("/dashboard");
     };
 
   return (
@@ -67,13 +67,7 @@ const Login = () => {
 
             {/* Form Section */}
             <VStack w={{ lg: "35vw", base: "70vw" }} p={"12"} mx={"auto"}>
-                <HStack justify="space-between" w="100%">
                     <Text fontSize={"3xl"} fontWeight={"bold"}>Welcome to UltiGear!</Text>
-                    <Button bg={"F7F3F4"} color={"#367236"} variant={"link"} fontWeight={"bold"}
-                        _hover={{ color: 'teal.600' }}
-                        onClick={() => navigate('/regist')}
-                    >Sign Up</Button>
-                </HStack>
                 
                 <Box w={"100%"} mt={"4"}>
                     <Text textAlign={"left"} mb={"1"}>Email</Text>
@@ -95,8 +89,7 @@ const Login = () => {
                     <Text textAlign={"left"} mb={"1"}>Password</Text>
                     <InputGroup>
                         <Input  type={passwordVisible ? 'text' : 'password'} placeholder="Enter your password" borderColor={"black"}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={password} onChange={(e) => setPassword(e.target.value)} 
                         />
                         <InputRightElement>
                             <Button size="sm"
@@ -122,4 +115,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default LoginAdmin

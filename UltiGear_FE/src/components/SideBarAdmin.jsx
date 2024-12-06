@@ -24,11 +24,11 @@ const SideBarAdmin = () => {
       <Box
         bg="#367236"
         color="white"
-        width="110%"
+        width="100%"
         h="100vh"
         top="0"
         position="sticky"
-        padding="20px"
+        padding="10px"
         display="flex"
         flexDirection="column"
         alignItems="center"
@@ -63,7 +63,7 @@ const SideBarAdmin = () => {
                 height: isActive("/dashboard") ? "50%" : "0",
                 width: "4px",
                 bg: "#DFA258",
-                left: "-23px",
+                left: "-38px",
                 borderRadius: "0 1.5px 1.5px 0",
                 transition: "height 0.3s ease-in-out",
               }}
@@ -75,20 +75,20 @@ const SideBarAdmin = () => {
               fontSize="lg"
               justifyContent="flex-start"
               bg="#367236"
-              color={isActive("/product") ? "#DFA258" : "white"}
+              color={isActive("/crudproduct") ? "#DFA258" : "white"}
               width="100%"
               _hover={{ color: "#DFA258" }}
               _active={{ bg: "#367236" }}
               position="relative"
               pl="4"
-              onClick={() => navigate("/product")}
+              onClick={() => navigate("/crudproduct")}
               _before={{
                 content: '""',
                 position: "absolute",
-                height: isActive("/product") ? "50%" : "0",
+                height: isActive("/crudproduct") ? "50%" : "0",
                 width: "4px",
                 bg: "#DFA258",
-                left: "-23px",
+                left: "-38px",
                 borderRadius: "0 1.5px 1.5px 0",
                 transition: "height 0.3s ease-in-out",
               }}
@@ -101,7 +101,7 @@ const SideBarAdmin = () => {
             bg={"#DFA258"}
             mt={"16"}
             _hover={{ bg: "yellow.700" }}
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/loginadmin")}
           >
             <IoLogOutOutline /> Logout
           </Button>

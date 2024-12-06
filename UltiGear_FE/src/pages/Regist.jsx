@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Layout from './Layout'
-import { Box, Button, Input, Text, VStack, HStack, InputGroup, InputRightElement, Icon } from '@chakra-ui/react'
+import { Box, Button, Input, Text, VStack, HStack, InputGroup, InputRightElement, Icon, useToast } from '@chakra-ui/react'
 import { FaCheck } from "react-icons/fa6";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom'
@@ -12,6 +12,8 @@ const Regist = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+    const toast = useToast(); 
     const navigate = useNavigate();
 
     // Regex for email validation
@@ -19,74 +21,88 @@ const Regist = () => {
 
     const handleSignUp = () => {
         if (!username) {
-            Swal.fire({
-                title: 'Invalid Username',
-                text: 'Username is required.',
-                icon: 'error',
-                confirmButtonText: 'Okay'
+            toast({
+              title: 'Invalid Username',
+              description: 'Username is required.',
+              status: 'error',
+              duration: 3000,
+              isClosable: true,
+              position: 'top-right',
             });
             return;
-        }
-
-        if (username.length < 4) {
-            Swal.fire({
-                title: 'Invalid Username',
-                text: 'Username must be at least 4 characters long.',
-                icon: 'error',
-                confirmButtonText: 'Okay'
+          }
+      
+          if (username.length < 4) {
+            toast({
+              title: 'Invalid Username',
+              description: 'Username must be at least 4 characters long.',
+              status: 'error',
+              duration: 3000,
+              isClosable: true,
+              position: 'top-right',
             });
             return;
-        }
-
-        if (!validateEmail(email)) {
-            Swal.fire({
-                title: 'Invalid Email',
-                text: 'Please enter a valid email address.',
-                icon: 'error',
-                confirmButtonText: 'Okay'
+          }
+      
+          if (!validateEmail(email)) {
+            toast({
+              title: 'Invalid Email',
+              description: 'Please enter a valid email address.',
+              status: 'error',
+              duration: 3000,
+              isClosable: true,
+              position: 'top-right',
             });
             return;
-        }
-
-        if (!password) {
-            Swal.fire({
-                title: 'Invalid Password',
-                text: 'Password is required.',
-                icon: 'error',
-                confirmButtonText: 'Okay'
+          }
+      
+          if (!password) {
+            toast({
+              title: 'Invalid Password',
+              description: 'Password is required.',
+              status: 'error',
+              duration: 3000,
+              isClosable: true,
+              position: 'top-right',
             });
             return;
-        }
-
-        if (password !== confirmPassword) {
-            Swal.fire({
-                title: 'Password Mismatch',
-                text: 'Password and Confirm Password must match.',
-                icon: 'error',
-                confirmButtonText: 'Okay'
+          }
+      
+          if (password !== confirmPassword) {
+            toast({
+              title: 'Password Mismatch',
+              description: 'Password and Confirm Password must match.',
+              status: 'error',
+              duration: 3000,
+              isClosable: true,
+              position: 'top-right',
             });
             return;
-        }
-
-        if (!confirmPassword) {
-            Swal.fire({
-                title: 'Invalid Confirm Password',
-                text: 'Please confirm your password.',
-                icon: 'error',
-                confirmButtonText: 'Okay'
+          }
+      
+          if (!confirmPassword) {
+            toast({
+              title: 'Invalid Confirm Password',
+              description: 'Please confirm your password.',
+              status: 'error',
+              duration: 3000,
+              isClosable: true,
+              position: 'top-right',
             });
             return;
-        }
-    
-        // Proceed with registration logic
-        Swal.fire({
+          }
+      
+          // Jika validasi berhasil
+          toast({
             title: 'Account Created',
-            text: 'Your account has been successfully created.',
-            icon: 'success',
-            confirmButtonText: 'Okay'
-        }).then(() => {
-            navigate('/'); // Navigate to the login page after successful registration
-        });
+            description: 'Your account has been successfully created.',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+            position: 'top-right',
+          });
+      
+          navigate('/');
     };
 
     return (
@@ -147,7 +163,7 @@ const Regist = () => {
                                     bg="transparent"
                                     _hover={{ bg: 'transparent' }}
                                 >
-                                    {passwordVisible ? <FaRegEyeSlash /> : <FaRegEye /> }
+                                    {passwordVisible ? <FaRegEye /> : <FaRegEyeSlash />  }
                                 </Button>
                             </InputRightElement>
                         </InputGroup>    
@@ -156,16 +172,16 @@ const Regist = () => {
                     <Box w={"100%"} mt={"4"}>
                         <Text textAlign={"left"} mb={"1"}>Confirm Password</Text>
                         <InputGroup>
-                            <Input  type={passwordVisible ? 'text' : 'password'} placeholder="Enter your password again" borderColor={"black"}
+                            <Input  type={confirmPasswordVisible ? 'text' : 'password'} placeholder="Enter your password again" borderColor={"black"}
                                 value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
                             />
                             <InputRightElement>
                                 <Button size="sm"
-                                    onClick={() => setPasswordVisible((prev) => !prev)}
+                                    onClick={() => setConfirmPasswordVisible((prev) => !prev)}
                                     bg="transparent"
                                     _hover={{ bg: 'transparent' }}
                                 >
-                                    {passwordVisible ? <FaRegEyeSlash /> : <FaRegEye /> }
+                                    {confirmPasswordVisible ? <FaRegEye /> : <FaRegEyeSlash />  }
                                 </Button>
                             </InputRightElement>
                         </InputGroup>    
