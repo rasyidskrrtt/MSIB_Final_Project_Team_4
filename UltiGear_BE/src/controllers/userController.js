@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const models = require('../models'); 
 const ResponseAPI = require('../utils/response');
+const { imageUpload } = require('../utils/imageUtil');
 const { jwtSecret, jwtExpiresIn } = require('../config/env');
 
 const generateToken = (id) => jwt.sign({ id }, jwtSecret, { expiresIn: jwtExpiresIn });
@@ -8,7 +9,8 @@ const generateToken = (id) => jwt.sign({ id }, jwtSecret, { expiresIn: jwtExpire
 const userController = {
   async register(req, res) {
     try {
-      const { username, email, password, confirmPassword, photo_url } = req.body;
+      const { username, email, password, confirmPassword } = req.body;
+      let photo_url;
 
       // Validasi email dan password
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -22,13 +24,20 @@ const userController = {
       }
 
       // Cek email sudah terdaftar
-      const existingUser = await models.User.findOne({ email }); //ini
+      const existingUser = await models.User.findOne({ email });
       if (existingUser) {
         return ResponseAPI.error(res, 'Email already exists', 409);
       }
 
-      // Membuat user baru (hashing dilakukan di middleware)
-      const user = new models.User({ username, email, password });
+      // Upload gambar jika ada
+      if (req.file) {
+        photo_url = await imageUpload(req.file);
+      } else {
+        photo_url = req.body.photo_url || 'https://example.com/chillGuy.jpg';
+      }
+
+      // Membuat user baru
+      const user = new models.User({ username, email, password, photo_url });
       await user.save();
 
       ResponseAPI.success(res, {
@@ -89,7 +98,8 @@ const userController = {
         return ResponseAPI.forbidden(res, 'You are not authorized to edit this profile');
       }
 
-      const { username, email, photo_url } = req.body;
+      const { username, email } = req.body;
+      let photo_url = req.body.photo_url;
 
       // Validasi email jika diubah
       if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -102,6 +112,11 @@ const userController = {
         if (existingUser && existingUser._id.toString() !== userIdFromToken) {
           return ResponseAPI.error(res, 'Email is already in use', 409);
         }
+      }
+
+      // Upload gambar jika ada file baru
+      if (req.file) {
+        photo_url = await imageUpload(req.file);
       }
 
       // Ambil data pengguna berdasarkan ID dari URL parameter
@@ -118,7 +133,6 @@ const userController = {
       // Simpan perubahan ke database
       await user.save();
 
-      // Kembalikan data pengguna yang telah diperbarui
       ResponseAPI.success(res, {
         user: {
           id: user._id,

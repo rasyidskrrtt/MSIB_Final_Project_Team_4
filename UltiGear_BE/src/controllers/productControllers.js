@@ -28,7 +28,7 @@ const productControllers = {
 
       return ResponseAPI.success(res, { product }, 'Product created successfully', 201);
     } catch (err) {
-      return ResponseAPI.serverError(res, err);
+      return ResponseAPI.serverError(res, err); 
     }
   },
 
