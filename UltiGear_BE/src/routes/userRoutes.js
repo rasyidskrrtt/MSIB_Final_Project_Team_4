@@ -7,6 +7,6 @@ const userRoutes = express.Router();
 
 userRoutes.post('/auth/register', userController.register);
 userRoutes.post('/auth/login', userController.login);
-userRoutes.put('/auth/editProfile/:id', auth, authorization('CUSTOMER'), userController.editProfile);
+userRoutes.put('/auth/editProfile/:id', auth, authorization(['CUSTOMER']), userController.editProfile);
 
 module.exports = userRoutes;

@@ -6,12 +6,15 @@ const productControllers = {
   
   createProduct: async (req, res) => {
     try {
-      const { name, category, price, stock } = req.body;
-      let image_url = null;
+      const { name, category, price, stock, description } = req.body;
+      let image_url;
 
-      // Proses upload gambar ke Cloudinary
       if (req.file) {
-        image_url = await imageUpload(req.file);
+        
+        const uploadResult = await imageUpload(req.file);
+        image_url = uploadResult;
+      } else {
+        image_url = req.body.image_url; 
       }
 
       const product = await models.Product.create({
@@ -19,7 +22,8 @@ const productControllers = {
         category,
         price,
         stock,
-        image_url,
+        description,
+        image_url, 
       });
 
       return ResponseAPI.success(res, { product }, 'Product created successfully', 201);
@@ -54,7 +58,7 @@ const productControllers = {
       const { name, category, price, stock } = req.body;
       let image_url = req.body.image_url;
 
-      // Proses upload gambar ke Cloudinary jika ada gambar baru
+      // Upload image if a new one is provided
       if (req.file) {
         image_url = await imageUpload(req.file);
       }

@@ -1,5 +1,4 @@
 const env = require('./env');
-
 const cloudinary = require('cloudinary').v2
 
 const initCloudinary = () => {
