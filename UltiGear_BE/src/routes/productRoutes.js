@@ -10,7 +10,7 @@ productRoutes.post(
     '/products',
     auth, 
     authorization(['ADMIN']), 
-    upload.single('image'), 
+    upload.single('image_url'), 
     productControllers.createProduct 
 );
 
@@ -32,7 +32,7 @@ productRoutes.put(
     '/products/:id',
     auth, 
     authorization(['ADMIN']),
-    upload.single('image'), 
+    upload.single('image_url'), 
     productControllers.updateProduct 
 );
 

@@ -8,6 +8,6 @@ const userRoutes = express.Router();
 
 userRoutes.post('/auth/register', upload.single('photo'), userController.register);
 userRoutes.post('/auth/login', userController.login);
-userRoutes.put('/auth/editProfile/:id', auth, authorization(['CUSTOMER']), upload.single('photo'), userController.editProfile);
+userRoutes.put('/auth/editProfile/:id', auth, authorization(['CUSTOMER']), upload.single('photo_url'), userController.editProfile);
 
 module.exports = userRoutes;
