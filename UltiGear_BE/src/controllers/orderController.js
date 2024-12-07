@@ -1,35 +1,58 @@
 const models = require('../models');
 const ResponseAPI = require('../utils/response');
+const snap = require('../config/midtrans');
 
 const orderControllers = {
 
   createOrder: async (req, res) => {
     try {
-      const { product_id, user_id, total_price, payment_status, payment_date } = req.body;
+        const { product_id, user_id, total_price } = req.body;
 
-      // Validate if the user exists
-      const user = await models.User.findById(user_id);
-      if (!user) {
-        return ResponseAPI.notFound(res, 'User not found');
-      }
+        // Validate user and product existence
+        const user = await models.User.findById(user_id);
+        if (!user) {
+            return ResponseAPI.notFound(res, 'User not found');
+        }
+        const product = await models.Product.findById(product_id);
+        if (!product) {
+            return ResponseAPI.notFound(res, 'Product not found');
+        }
 
-      // Validate if the product exists
-      const product = await models.Product.findById(product_id);
-      if (!product) {
-        return ResponseAPI.notFound(res, 'Product not found');
-      }
+        // Create order in the database
+        const newOrder = await models.Order.create({
+            product_id,
+            user_id,
+            total_price,
+            payment_status: 'PENDING',
+            payment_url: null,  // Set to null initially
+        });
 
-      const newOrder = await models.Order.create({
-        product_id,
-        user_id,
-        total_price,
-        payment_status,
-        payment_date,
-      });
+        // Prepare Midtrans parameters
+        const midtransParams = {
+            transaction_details: {
+                order_id: `MID-${newOrder._id}`,
+                gross_amount: total_price,
+            },
+            customer_details: {
+                first_name: user.name,
+                email: user.email,
+            },
+            enabled_payments: ['gopay', 'shopeepay', 'bank_transfer', 'echannel', 'dana'], 
+        };
 
-      return ResponseAPI.success(res, { order: newOrder }, 'Order created successfully', 201);
+        // Create Midtrans transaction
+        const midtransResponse = await snap.createTransaction(midtransParams);
+
+        // Update the order with the payment URL
+        newOrder.payment_url = midtransResponse.redirect_url;
+        await newOrder.save();  // Save the payment_url to the database
+
+        // Include payment URL in the response
+        return ResponseAPI.success(res, {
+            order: newOrder
+        }, 'Order created and payment URL generated successfully', 201);
     } catch (err) {
-      return ResponseAPI.serverError(res, err);
+        return ResponseAPI.serverError(res, err);
     }
   },
 
@@ -61,9 +84,20 @@ const orderControllers = {
   updateOrderPaymentStatus: async (req, res) => { 
     try {
       const { payment_status, payment_date } = req.body;
+
+      // If the payment status is "PAID", set the payment_date to now
+      const updateData = {
+        payment_status,
+        updated_at: Date.now(),
+      };
+      
+      if (payment_status === 'PAID') {
+        updateData.payment_date = Date.now();
+      }
+
       const order = await models.Order.findByIdAndUpdate(
         req.params.id,
-        { payment_status, payment_date, updated_at: Date.now() },
+        updateData,
         { new: true }
       );
       if (!order) {

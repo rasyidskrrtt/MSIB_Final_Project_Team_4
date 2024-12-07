@@ -1,5 +1,5 @@
 const midtransClient = require('midtrans-client');
-const { midtransServerKey, midtransClientKey } = require('./.env');
+const { midtransServerKey, midtransClientKey } = require('./env');
 
 const snap = new midtransClient.Snap({
     isProduction: false,

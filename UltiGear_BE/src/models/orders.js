@@ -24,6 +24,11 @@ const ordersSchema = new mongoose.Schema(
     },
     payment_date: {
       type: Date,
+      default: null,
+    },
+    payment_url: {  
+      type: String,
+      default: null,
     },
   },
   {
