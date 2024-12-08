@@ -14,52 +14,52 @@ const HomePage = () => {
   const products = [
     {
       name: "Jaket Himalaya",
-      price: 40,
+      price: 400000, // Harga dalam IDR
       image: "https://via.placeholder.com/200x150?text=Jaket+Himalaya",
     },
     {
       name: "Tenda Gunung",
-      price: 70,
+      price: 700000, // Harga dalam IDR
       image: "https://via.placeholder.com/200x150?text=Tenda+Gunung",
     },
     {
       name: "Sepatu Pendakian",
-      price: 60,
+      price: 600000, // Harga dalam IDR
       image: "https://via.placeholder.com/200x150?text=Sepatu+Pendakian",
     },
     {
       name: "Senter Outdoor",
-      price: 15,
+      price: 150000, // Harga dalam IDR
       image: "https://via.placeholder.com/200x150?text=Senter+Outdoor",
     },
     {
       name: "Tas Ransel Hiking",
-      price: 50,
+      price: 500000, // Harga dalam IDR
       image: "https://via.placeholder.com/200x150?text=Tas+Ransel+Hiking",
     },
     {
       name: "Jakarta Jacket",
-      price: 45,
+      price: 450000, // Harga dalam IDR
       image: "https://via.placeholder.com/200x150?text=Jakarta+Jacket",
     },
     {
       name: "Pelindung Hujan Ponco",
-      price: 25,
+      price: 250000, // Harga dalam IDR
       image: "https://via.placeholder.com/200x150?text=Pelindung+Hujan+Ponco",
     },
     {
       name: "Sleeping Bag Travel",
-      price: 80,
+      price: 800000, // Harga dalam IDR
       image: "https://via.placeholder.com/200x150?text=Sleeping+Bag+Travel",
     },
     {
       name: "Matras Tidur",
-      price: 30,
+      price: 300000, // Harga dalam IDR
       image: "https://via.placeholder.com/200x150?text=Matras+Tidur",
     },
     {
       name: "Kompas Navigation",
-      price: 20,
+      price: 200000, // Harga dalam IDR
       image: "https://via.placeholder.com/200x150?text=Kompas+Navigation",
     },
   ];  
@@ -168,7 +168,7 @@ const HomePage = () => {
                     {product.name}
                   </Text>
                   <Text color="green.600" fontWeight="bold" fontSize="md">
-                    ${product.price}
+                    Rp {product.price.toLocaleString()} {/* Menampilkan harga dalam format IDR */}
                   </Text>
                 </VStack>
 
