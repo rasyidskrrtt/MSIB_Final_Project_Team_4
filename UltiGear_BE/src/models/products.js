@@ -10,24 +10,35 @@ const productsSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
+      trim: true,
     },
-    stock: {
-      type: Number,
-      required: true,
-      min: 0,
+    description: {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    image_url: {
+      type: String,
+      required: false,
+      trim: true,
     },
     price: {
       type: Number,
       required: true,
       min: 0,
     },
-    description: {
-      type: String,
-      trim: true,
+    size: {
+      type: [String], 
+      enum: ["S", "M", "L", "XL"],
     },
-    image_url: {
-      type: String,
-      trim: true,
+    color: {
+      type: [String], 
+      enum: ["Red", "Green", "Yellow", "Blue"],
+    },
+    stock: {
+      type: Number,
+      required: true,
+      min: 0,
     },
   },
   {

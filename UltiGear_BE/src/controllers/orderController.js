@@ -24,7 +24,7 @@ const orderControllers = {
             user_id,
             total_price,
             payment_status: 'PENDING',
-            payment_url: null,  // Set to null initially
+            payment_url: null,  
         });
 
         // Prepare Midtrans parameters
@@ -45,9 +45,8 @@ const orderControllers = {
 
         // Update the order with the payment URL
         newOrder.payment_url = midtransResponse.redirect_url;
-        await newOrder.save();  // Save the payment_url to the database
+        await newOrder.save();  
 
-        // Include payment URL in the response
         return ResponseAPI.success(res, {
             order: newOrder
         }, 'Order created and payment URL generated successfully', 201);
