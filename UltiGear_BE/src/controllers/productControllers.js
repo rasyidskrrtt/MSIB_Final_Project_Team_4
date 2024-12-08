@@ -1,20 +1,18 @@
 const models = require('../models');
 const ResponseAPI = require('../utils/response');
-const { imageUpload } = require('../utils/imageUtil'); 
+const { imageUpload } = require('../utils/imageUtil');
 
 const productControllers = {
-  
   createProduct: async (req, res) => {
     try {
-      const { name, category, price, stock, description } = req.body;
+      const { name, category, price, stock, description, size, color } = req.body;
       let image_url;
 
       if (req.file) {
-        
         const uploadResult = await imageUpload(req.file);
         image_url = uploadResult;
       } else {
-        image_url = req.body.image_url; 
+        image_url = req.body.image_url;
       }
 
       const product = await models.Product.create({
@@ -23,18 +21,46 @@ const productControllers = {
         price,
         stock,
         description,
-        image_url, 
+        size, 
+        color, 
+        image_url,
       });
 
       return ResponseAPI.success(res, { product }, 'Product created successfully', 201);
     } catch (err) {
-      return ResponseAPI.serverError(res, err); 
+      return ResponseAPI.serverError(res, err);
     }
   },
 
   getAllProducts: async (req, res) => {
     try {
-      const products = await models.Product.find();
+      const { keyword, sortBy, sortOrder = 'asc' } = req.query; 
+  
+      // Filter pencarian
+      let searchQuery = {};
+      if (keyword) {
+        const searchRegex = new RegExp(keyword, 'i'); 
+        searchQuery = {
+          $or: [
+            { name: { $regex: searchRegex } },
+            { category: { $regex: searchRegex } },
+          ],
+        };
+      }
+  
+      // Sorting
+      let sortQuery = {};
+      if (sortBy) {
+        sortQuery[sortBy] = sortOrder === 'desc' ? -1 : 1;
+      }
+  
+      // Ambil produk dengan filter dan sorting
+      const products = await models.Product.find(searchQuery).sort(sortQuery);
+  
+      if (products.length === 0) {
+        return ResponseAPI.notFound(res, 'No products found matching the criteria');
+      }
+  
       return ResponseAPI.success(res, { products }, 'Products retrieved successfully');
     } catch (err) {
       return ResponseAPI.serverError(res, err);
@@ -55,17 +81,16 @@ const productControllers = {
 
   updateProduct: async (req, res) => {
     try {
-      const { name, category, price, stock } = req.body;
+      const { name, category, price, stock, description, size, color } = req.body; 
       let image_url = req.body.image_url;
 
-      // Upload image if a new one is provided
       if (req.file) {
         image_url = await imageUpload(req.file);
       }
 
       const product = await models.Product.findByIdAndUpdate(
         req.params.id,
-        { name, category, price, stock, image_url },
+        { name, category, price, stock, description, size, color, image_url }, 
         { new: true }
       );
 
@@ -92,5 +117,4 @@ const productControllers = {
   },
 };
 
-// Export semua controllers
 module.exports = productControllers;

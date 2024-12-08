@@ -1,46 +1,48 @@
-To modify the code to allow searching by product name, you can add a query parameter for the search term in the request, and then use it to filter the products based on the `name` field. Here's how you can do it:
+Untuk memodifikasi kode agar memungkinkan pencarian berdasarkan nama produk, Anda dapat menambahkan parameter kueri untuk kata kunci pencarian pada permintaan, lalu menggunakannya untuk memfilter produk berdasarkan kolom nama. Berikut langkah-langkahnya:
 
-### Updated Code:
+### Kode yang Diperbarui:
 ```javascript
 getAllProducts: async (req, res) => {
     try {
-        // Get search query parameter from request (if available)
+        // Ambil parameter kueri 'search' dari permintaan (jika ada)
         const { search } = req.query;
 
-        // Build the query filter object
+        // Bangun objek filter untuk kueri
         const filter = search ? { name: { $regex: search, $options: 'i' } } : {};
 
-        // Find products with optional search filter
+        // Temukan produk dengan filter pencarian opsional
         const products = await models.Product.find(filter);
 
-        return ResponseAPI.success(res, { products }, 'Products retrieved successfully');
+        return ResponseAPI.success(res, { products }, 'Produk berhasil diambil');
     } catch (err) {
         return ResponseAPI.serverError(res, err);
     }
 },
 ```
 
-### Explanation:
-- **`search`**: This code gets the `search` parameter from the query string. If the `search` parameter is present, it filters products by name using a regular expression (case-insensitive search).
-- **`$regex`**: The regular expression query allows for partial matches, and `$options: 'i'` makes the search case-insensitive.
-- **`filter`**: If there's no `search` query, it defaults to an empty object `{}`, meaning no filtering.
+### Penjelasan:
+1. **`search`:** Parameter ini diambil dari string kueri permintaan. Jika tersedia, digunakan untuk memfilter produk berdasarkan nama dengan pencocokan parsial (partial match).
+2. **`$regex`:** Query ekspresi reguler memungkinkan pencocokan parsial, sedangkan `options: 'i'` membuat pencarian tidak peka huruf besar-kecil (case-insensitive).
+3. **`filter`:** Jika tidak ada parameter pencarian, kode akan menggunakan filter kosong `{}`, yang berarti tidak ada penyaringan.
 
-### Example Request to Hit the API:
-Assuming your API endpoint is `/api/products`, here are some examples of how to make requests.
+### Contoh Permintaan untuk API:
+Misalnya, jika endpoint API Anda adalah `/api/products`, berikut contoh permintaannya:
 
-1. **Search with a term** (e.g., products with names containing "phone"):
-   ```http
-   GET /api/products?search=phone
-   ```
+- **Pencarian dengan kata kunci (misalnya, nama produk mengandung "phone"):**
 
-2. **Request with no search filter** (returns all products):
-   ```http
-   GET /api/products
-   ```
+  ```http
+  GET /api/products?search=phone
+  ```
 
-### Example using `fetch` in JavaScript:
+- **Permintaan tanpa filter pencarian (mengambil semua produk):**
+
+  ```http
+  GET /api/products
+  ```
+
+### Contoh Menggunakan `fetch` di JavaScript:
 ```javascript
-// Example using JavaScript Fetch API to hit the endpoint
+// Contoh menggunakan JavaScript Fetch API untuk mengakses endpoint
 async function getProducts(searchTerm) {
   const url = new URL('https://your-api-url/api/products');
   if (searchTerm) {
@@ -53,8 +55,9 @@ async function getProducts(searchTerm) {
   console.log(data);
 }
 
-// Usage example
-getProducts('phone');  // Search for products with "phone" in the name
+// Contoh penggunaan
+getProducts('phone');  // Cari produk dengan kata "phone" pada namanya
 ```
 
-This should meet your requirement of adding a search functionality to your API, and provide a clean way to search products by name.
+### Kesimpulan:
+Kode ini memenuhi kebutuhan Anda untuk menambahkan fungsi pencarian ke API dan menyediakan cara bersih untuk mencari produk berdasarkan nama. Anda dapat memodifikasi lebih lanjut jika perlu, misalnya menambahkan validasi pada input parameter `search`.
