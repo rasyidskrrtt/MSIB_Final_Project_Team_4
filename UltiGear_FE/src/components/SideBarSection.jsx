@@ -7,7 +7,7 @@ import { MdEdit } from "react-icons/md";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const SideBarSection = () => {
-  const name = "Windows Batubara";
+  const name = "windows batubara";
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,141 +18,144 @@ const SideBarSection = () => {
       <Box
         bg="#367236"
         color="white"
-        width="110%"
+        width="20vw"
+        maxWidth="300px"
         h="100vh"
         top="0"
         position="sticky"
-        padding="20px"
+        paddingBlock="20px"
         display="flex"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
       >
-        <VStack align="center" width="100%">
+        <VStack align="center" width="100%" paddingInline="30px" >
           <Box textAlign="center">
             <Avatar size={"xl"} mb={"4"} />
             <Text fontSize={"lg"} mb={"8"}>
               Welcome Back! <br />
-              <Text as="span" fontWeight={"bold"}>
+              <Text as="span" fontWeight={"bold"} >
                 {name}
               </Text>
             </Text>
           </Box>
-          <VStack align={"start"} spacing={"2"}>
-            <Button
-              leftIcon={<AiFillHome size="24px" />}
-              fontSize="lg"
-              justifyContent="flex-start"
-              bg="#367236"
-              color={isActive("/home") ? "#DFA258" : "white"}
-              width="100%"
-              _hover={{ color: "#DFA258" }}
-              _active={{ bg: "#367236" }}
-              position="relative"
-              pl="4"
-              onClick={() => navigate("/home")}
-              _before={{
-                content: '""',
-                position: "absolute",
-                height: isActive("/home") ? "50%" : "0",
-                width: "4px",
-                bg: "#DFA258",
-                left: "-23px",
-                borderRadius: "0 1.5px 1.5px 0",
-                transition: "height 0.3s ease-in-out",
-              }}
-            >
-              Home
-            </Button>
-            <Button
-              leftIcon={<IoMdCart size="24px" />}
-              fontSize="lg"
-              justifyContent="flex-start"
-              bg="#367236"
-              color={isActive("/cart") ? "#DFA258" : "white"}
-              width="100%"
-              _hover={{ color: "#DFA258" }}
-              _active={{ bg: "#367236" }}
-              position="relative"
-              pl="4"
-              onClick={() => navigate("/cart")}
-              _before={{
-                content: '""',
-                position: "absolute",
-                height: isActive("/cart") ? "50%" : "0",
-                width: "4px",
-                bg: "#DFA258",
-                left: "-23px",
-                borderRadius: "0 1.5px 1.5px 0",
-                transition: "height 0.3s ease-in-out",
-              }}
-            >
-              Cart
-            </Button>
-            <Button
-              leftIcon={<AiOutlineFileSearch size="24px" />}
-              fontSize="lg"
-              justifyContent="flex-start"
-              bg="#367236"
-              color={isActive("/myorders") ? "#DFA258" : "white"}
-              width="100%"
-              _hover={{ color: "#DFA258" }}
-              _active={{ bg: "#367236" }}
-              position="relative"
-              pl="4"
-              mb={"3"}
-              onClick={() => navigate("/myorders")}
-              _before={{
-                content: '""',
-                position: "absolute",
-                height: isActive("/myorders") ? "50%" : "0",
-                width: "4px",
-                bg: "#DFA258",
-                left: "-23px",
-                borderRadius: "0 1.5px 1.5px 0",
-                transition: "height 0.3s ease-in-out",
-              }}
-            >
-              My Orders
-            </Button>
-            <Divider borderColor="whiteAlpha.900" />
-            <Button
-              leftIcon={<MdEdit size="24px" />}
-              fontSize="lg"
-              justifyContent="flex-start"
-              bg="#367236"
-              color={isActive("/editprofile") ? "#DFA258" : "white"}
-              width="100%"
-              _hover={{ color: "#DFA258" }}
-              _active={{ bg: "#367236" }}
-              position="relative"
-              pl="4"
-              mt={"3"}
-              onClick={() => navigate("/editprofile")}
-              _before={{
-                content: '""',
-                position: "absolute",
-                height: isActive("/editprofile") ? "50%" : "0",
-                width: "4px",
-                bg: "#DFA258",
-                left: "-23px",
-                borderRadius: "0 1.5px 1.5px 0",
-                transition: "height 0.3s ease-in-out",
-              }}
-            >
-              Edit Profile
-            </Button>
-          </VStack>
+        </VStack>
+        <VStack align={"start"} spacing={"2"} width={"100%"}>
           <Button
-            color={"white"}
-            bg={"#DFA258"}
-            mt={"16"}
-            _hover={{ bg: "yellow.700" }}
-            onClick={() => navigate("/")}
+            leftIcon={<AiFillHome size="24px" />}
+            fontSize="lg"
+            bg="#367236"
+            justifyContent="flex-start"
+            color={isActive("/home") ? "#DFA258" : "white"}
+            width="100%"
+            _hover={{ color: "#DFA258" }}
+            _active={{ bg: "#367236" }}
+            position="relative"
+            textAlign={"center"}
+            pl="10"
+            onClick={() => navigate("/home")}
+            _before={{
+              content: '""',
+              position: "absolute",
+              height: isActive("/home") ? "50%" : "0",
+              width: "4px",
+              bg: "#DFA258",
+              left: "0",
+              borderRadius: "0 1.5px 1.5px 0",
+              transition: "height 0.3s ease-in-out",
+            }}
           >
-            <IoLogOutOutline /> Logout
+            Home
+          </Button>
+          <Button
+            leftIcon={<IoMdCart size="24px" />}
+            fontSize="lg"
+            justifyContent="flex-start"
+            bg="#367236"
+            color={isActive("/cart") ? "#DFA258" : "white"}
+            width="100%"
+            _hover={{ color: "#DFA258" }}
+            _active={{ bg: "#367236" }}
+            position="relative"
+            pl="10"
+            onClick={() => navigate("/cart")}
+            _before={{
+              content: '""',
+              position: "absolute",
+              height: isActive("/cart") ? "50%" : "0",
+              width: "4px",
+              bg: "#DFA258",
+              left: "0",
+              borderRadius: "0 1.5px 1.5px 0",
+              transition: "height 0.3s ease-in-out",
+            }}
+          >
+            Cart
+          </Button>
+          <Button
+            leftIcon={<AiOutlineFileSearch size="24px" />}
+            fontSize="lg"
+            justifyContent="flex-start"
+            bg="#367236"
+            color={isActive("/myorders") ? "#DFA258" : "white"}
+            width="100%"
+            _hover={{ color: "#DFA258" }}
+            _active={{ bg: "#367236" }}
+            position="relative"
+            pl="10"
+            mb={"3"}
+            onClick={() => navigate("/myorders")}
+            _before={{
+              content: '""',
+              position: "absolute",
+              height: isActive("/myorders") ? "50%" : "0",
+              width: "4px",
+              bg: "#DFA258",
+              left: "0",
+              borderRadius: "0 1.5px 1.5px 0",
+              transition: "height 0.3s ease-in-out",
+            }}
+          >
+            My Orders
+          </Button>
+          <Divider borderColor="whiteAlpha.900" />
+          <Button
+            leftIcon={<MdEdit size="24px" />}
+            fontSize="lg"
+            justifyContent="flex-start"
+            bg="#367236"
+            color={isActive("/editprofile") ? "#DFA258" : "white"}
+            width="100%"
+            _hover={{ color: "#DFA258" }}
+            _active={{ bg: "#367236" }}
+            position="relative"
+            pl="10"
+            mt={"3"}
+            onClick={() => navigate("/editprofile")}
+            _before={{
+              content: '""',
+              position: "absolute",
+              height: isActive("/editprofile") ? "50%" : "0",
+              width: "4px",
+              bg: "#DFA258",
+              left: "0",
+              borderRadius: "0 1.5px 1.5px 0",
+              transition: "height 0.3s ease-in-out",
+            }}
+          >
+            Edit Profile
           </Button>
         </VStack>
+        <Button
+          color={"white"}
+          bg={"#DFA258"}
+          mt={"16"}
+          _hover={{ bg: "yellow.700" }}
+          onClick={() => navigate("/")}
+        >
+          <IoLogOutOutline /> Logout
+        </Button>
+
       </Box>
     </HStack>
   );

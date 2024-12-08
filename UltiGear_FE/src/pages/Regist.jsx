@@ -4,7 +4,6 @@ import { Box, Button, Input, Text, VStack, HStack, InputGroup, InputRightElement
 import { FaCheck } from "react-icons/fa6";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom'
-import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const Regist = () => {
     const [email, setEmail] = useState('');

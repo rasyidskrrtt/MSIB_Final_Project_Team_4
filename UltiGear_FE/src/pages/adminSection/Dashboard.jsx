@@ -1,4 +1,3 @@
-// Updated Dashboard Component
 import React from "react";
 import { Box, Text, HStack, VStack } from "@chakra-ui/react";
 import SideBarAdmin from "../../components/SideBarAdmin";
@@ -8,7 +7,7 @@ const Dashboard = () => {
   return (
     <HStack height="100vh" align="stretch" spacing={0}>
       {/* Sidebar */}
-      <Box flex="0 0 15%" h="100vh">
+      <Box>
         <SideBarAdmin />
       </Box>
 
@@ -98,7 +97,7 @@ const Dashboard = () => {
                 justifyContent="center"
               >
                 <Text fontSize="2xl" fontWeight="bold" color="white">
-                  28
+                  1
                 </Text>
               </Box>
               <Text fontSize="lg" fontWeight="bold" color="#367236">

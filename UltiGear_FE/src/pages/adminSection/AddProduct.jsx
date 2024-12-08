@@ -1,126 +1,235 @@
-import React, { useState } from 'react'
-import Layout from '../Layout'
-import SideBarAdmin from '../../components/SideBarAdmin'
-import { Box, Button, Heading, HStack, Image, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr, Text, VStack, FormControl, FormLabel, Input, Textarea, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from "react";
+import Layout from "../Layout";
+import SideBarAdmin from "../../components/SideBarAdmin";
+import {
+  Box,
+  Button,
+  Heading,
+  HStack,
+  Text,
+  VStack,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+} from "@chakra-ui/react";
+import { IconButton } from '@chakra-ui/react';
+import { FaMinus, FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
   const navigate = useNavigate();
-  const [stock, setStock] = useState(15);
+  const [stock, setStock] = useState(1);
 
   return (
     <Layout>
       <HStack height="100vh" w="100vw" align="stretch">
         {/* Sidebar */}
-        <Box flex="0 0 15%" h="100vh">
-                <SideBarAdmin />
+        <Box>
+          <SideBarAdmin />
         </Box>
         {/* Main Section */}
-        <Box p={5} px={20} h="100vh" w="100vw" bg="#F7F3F4" overflow="auto" >
-           {/* Header Section */}
-           <HStack justifyContent="space-between" mb={4} p={4} px={10}
-                    bg="#367236" borderRadius="md" boxShadow="sm">
-                    <Text color="white" fontSize="4xl" fontWeight="sm" fontFamily="'Covered By Your Grace', cursive">
-                        UltiGear!</Text>
-                    <Button color="white" bg="#DFA258" px={4}
-                    variant="unstyled" onClick={() => navigate("/crudproduct")}>Back to Product</Button>
-            </HStack>
-            {/* Form Section */}
-            <VStack spacing={4} align="stretch" bg="gray.200" p={10} borderRadius={10}>
-              <FormControl>
-                <HStack>
-                  <FormLabel w={48}>Name Product</FormLabel>
-                  <Input placeholder="masukan nama produk" borderColor="black"/>
-                </HStack>
-              </FormControl>
+        <Box p={5} px={20} h="100vh" w="100vw" bg="#F7F3F4" overflow="auto">
+          {/* Header Section */}
+          <HStack
+            justifyContent="space-between"
+            mb={4}
+            p={4}
+            px={10}
+            bg="#367236"
+            borderRadius="md"
+            boxShadow="sm"
+          >
+            <Text
+              color="white"
+              fontSize="4xl"
+              fontWeight="sm"
+              fontFamily="'Covered By Your Grace', cursive"
+            >
+              UltiGear!
+            </Text>
+            <Button
+              color="white"
+              bg="#DFA258"
+              px={4}
+              variant="unstyled"
+              onClick={() => navigate("/crudproduct")}
+            >
+              Back to Product
+            </Button>
+          </HStack>
+          {/* Form Section */}
+          <VStack
+            spacing={4}
+            align="stretch"
+            bg="gray.200"
+            p={10}
+            borderRadius={10}
+          >
+            {/* Name Product */}
+            <FormControl>
+              <HStack>
+                <FormLabel w={48}>Name</FormLabel>
+                <Input
+                  placeholder="masukan nama produk"
+                  borderColor="black"
+                  bg="white"
+                />
+              </HStack>
+            </FormControl>
 
-              <FormControl>
-                <HStack>
-                  <FormLabel w={48}>Description Product</FormLabel>
-                  <Textarea placeholder="masukan deskripsi produk" borderColor="black"/>
-                </HStack>
-              </FormControl>
+            {/* Category */}
+            <FormControl>
+              <HStack>
+                <FormLabel w={48}>Category</FormLabel>
+                <Input
+                  placeholder="masukan kategori produk"
+                  borderColor="black"
+                  bg="white"
+                />
+              </HStack>
+            </FormControl>
 
-              <FormControl>
-                <HStack>
-                  <FormLabel w={48}>Image Products</FormLabel>
-                  <Input type="file" accept="image/*" borderColor="black"
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      textAlign: "center",
-                      height: "50px",
-                      padding: "10px",
-                    }} />
-                </HStack>
-              </FormControl>
+            {/* Description Product */}
+            <FormControl>
+              <HStack>
+                <FormLabel w={48}>Description</FormLabel>
+                <Textarea
+                  placeholder="masukan deskripsi produk"
+                  borderColor="black"
+                  bg="white"
+                />
+              </HStack>
+            </FormControl>
 
-              <FormControl>
-                <HStack>
-                  <FormLabel w={48}>Product Price</FormLabel>
-                  <Input type="number" placeholder="masukan Harga produk" borderColor="black" />
-                </HStack>
-              </FormControl>
+            {/* Image Products */}
+            <FormControl>
+              <HStack>
+                <FormLabel w={48}>Image</FormLabel>
+                <Input
+                  type="file"
+                  accept="image/*"
+                  borderColor="black"
+                  bg="white"
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    height: "50px",
+                    padding: "10px",
+                  }}
+                />
+              </HStack>
+            </FormControl>
 
-              <FormControl>
-                <HStack>
-                  <FormLabel w={40}>Size</FormLabel>
-                  <HStack spacing={4}>
-                    {["S", "M", "L", "XL"].map((size) => (
-                      <Button key={size} size="sm" variant="outline" borderColor="black">
-                        {size}
-                      </Button>
-                    ))}
-                  </HStack>
-                </HStack>
-              </FormControl>
+            {/* Product Price */}
+            <FormControl>
+              <HStack>
+                <FormLabel w={48}>Price</FormLabel>
+                <Input
+                  type="number"
+                  placeholder="masukan Harga produk"
+                  borderColor="black"
+                  bg="white"
+                />
+              </HStack>
+            </FormControl>
 
-              <FormControl>
-                <HStack>
-                  <FormLabel w={40}>Color</FormLabel>
-                  <HStack spacing={4}>
-                    {["Red", "Green", "Yellow", "Blue"].map((color) => (
-                      <Button
-                        key={color}
-                        size="sm"
-                        variant="outline"
-                        colorScheme={color.toLowerCase()}
-                      >
-                        {color}
-                      </Button>
-                    ))}
-                  </HStack>
-                </HStack>
-                
-              </FormControl>
-
-              <FormControl>
-                <HStack>
-                  <FormLabel w={40}>Product Stock</FormLabel>
-                  <HStack>
-                    <Button bg="green.600" color="white" variant="unstyled" onClick={() => setStock(stock - 1)}>-</Button>
-                    <NumberInput borderColor="black" w="20"
-                      value={stock}
-                      onChange={(valueString) => setStock(parseInt(valueString, 10))}
-                      min={0}
+            {/* Size */}
+            <FormControl>
+              <HStack>
+                <FormLabel w={40}>Size</FormLabel>
+                <HStack spacing={4}>
+                  {["S", "M", "L", "XL"].map((size) => (
+                    <Button
+                      key={size}
+                      size="sm"
+                      variant="outline"
+                      borderColor="black"
                     >
-                      <NumberInputField />
-                    </NumberInput>
-                    <Button bg="green.600" color="white" variant="unstyled" onClick={() => setStock(stock + 1)}>+</Button>
+                      {size}
+                    </Button>
+                  ))}
+                </HStack>
+              </HStack>
+            </FormControl>
+
+            {/* Color */}
+            <FormControl>
+              <HStack>
+                <FormLabel w={40}>Color</FormLabel>
+                <HStack spacing={4}>
+                  {["Red", "Green", "Yellow", "Blue"].map((color) => (
+                    <Button
+                      key={color}
+                      size="sm"
+                      variant="outline"
+                      colorScheme={color.toLowerCase()}
+                    >
+                      {color}
+                    </Button>
+                  ))}
+                </HStack>
+              </HStack>
+            </FormControl>
+
+            {/* Product Stock */}
+            <FormControl>
+              <HStack spacing={4}>
+                <FormLabel w={40}>Stock</FormLabel>
+                <HStack spacing={4}>
+                  <Text fontSize="sm" color="gray.500">
+                    Quantity:
+                  </Text>
+                  <HStack spacing={1}>
+                    <IconButton
+                      icon={<FaMinus />}
+                      aria-label="Decrease Quantity"
+                      onClick={() => setStock(stock - 1)}
+                      isDisabled={stock <= 1}
+                      size="lg"
+                      color="#28521d"
+                      bgColor="gray.200"
+                    />
+                    <Text fontWeight="bold" px={2} fontSize="lg">
+                      {stock}
+                    </Text>
+                    <IconButton
+                      icon={<FaPlus />}
+                      aria-label="Increase Quantity"
+                      onClick={() => setStock(stock + 1)}
+                      size="lg"
+                      color="#28521d"
+                      bgColor="gray.200"
+                    />
                   </HStack>
                 </HStack>
-              </FormControl>
+              </HStack>
+            </FormControl>
 
-              <Button color="white" bg="#DFA258" w="10%" variant="unstyled" 
-                onClick={() => navigate("/crudproduct")} size="md" alignSelf="flex-end">
-                Submit
-              </Button>
-            </VStack>
+            {/* Submit Button */}
+            <Button
+              color="white"
+              bg="#DFA258"
+              w="10%"
+              variant="unstyled"
+              onClick={() => navigate("/crudproduct")}
+              size="md"
+              alignSelf="flex-end"
+            >
+              Submit
+            </Button>
+          </VStack>
         </Box>
       </HStack>
     </Layout>
-  )
-}
+  );
+};
 
-export default AddProduct
+export default AddProduct;
