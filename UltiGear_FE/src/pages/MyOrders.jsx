@@ -2,7 +2,6 @@ import React from 'react'
 import Layout from './Layout'
 import { Button, HStack, Image, Text, VStack } from '@chakra-ui/react'
 import SideBarSection from '../components/SideBarSection'
-import Search from '../components/Search'
 import { useNavigate } from 'react-router-dom'
 
 const MyOrders = () => {
@@ -22,7 +21,6 @@ const MyOrders = () => {
                     overflowY="auto"
                     height="100vh" 
                 >
-                    <Search />
                     <Text fontSize="4xl" fontWeight="semibold" 
                         px={{ base: '30px', md: '70px' }}  mb="-25px">
                         My Orders</Text>
@@ -54,7 +52,7 @@ const MyOrders = () => {
                         >
                             <Image 
                                 src="https://via.placeholder.com/80"
-                                alt="Tenda Anti Jamur"
+                                alt="Jaket Himalaya"
                                 boxSize="120px"
                                 objectFit="cover"
                                 borderRadius="md"
@@ -62,8 +60,9 @@ const MyOrders = () => {
                             <VStack align="start" flex="1" spacing={1}>
                                 <Text fontWeight="bold">Jaket Himalaya</Text>
                                 <Text fontSize="sm" color="gray.600">XL, Blue, 2 Items</Text>
-                                <Text fontWeight="bold" color="#367236" mt={6} fontSize="lg"
-                                    >$40</Text>
+                                <Text fontWeight="bold" color="#367236" mt={6} fontSize="lg">
+                                    Rp 40.000
+                                </Text>
                             </VStack>
                                 <VStack spacing={16}>
                                     <Text color="#367236" fontWeight="bold">Paid</Text>

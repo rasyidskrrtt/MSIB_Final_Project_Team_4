@@ -69,10 +69,14 @@ const Product = () => {
 
             <VStack align="start" spacing={4} width="100%">
               <Text fontWeight="bold" fontSize="2xl" color="#367236">
-                $40
+                Rp 200,000
               </Text>
               <Text fontSize="lg" fontWeight="semibold">
                 Jaket Himalaya
+              </Text>
+              {/* Menambahkan kategori di bawah nama produk */}
+              <Text fontSize="md" color="gray.500">
+                Category: Jacket
               </Text>
               <Text fontSize="md" color="gray.600">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
@@ -141,7 +145,7 @@ const Product = () => {
                   variant="outline"
                   borderColor="#28521d"
                   _hover={{ bg: "#e8f5e9" }}
-                  onClick={handleAddToCart} 
+                  onClick={handleAddToCart}
                 >
                   Add to Cart
                 </Button>
