@@ -82,7 +82,7 @@ const HomePage = () => {
         <VStack
           flex="1"
           align="start"
-          padding="20px"
+          padding="30px"
           spacing={8}
           overflowY="auto"
           height="100vh"
@@ -133,7 +133,7 @@ const HomePage = () => {
           {/* Product Card */}
           <Box
             display="grid"
-            gridTemplateColumns="repeat(5, 1fr)" 
+            gridTemplateColumns={{ base: "repeat(2, 1fr)", md: "repeat(5, 1fr)" }} 
             gap={6} 
             width="100%"
           >

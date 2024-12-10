@@ -15,7 +15,7 @@ const Dashboard = () => {
       <VStack
         flex="1"
         align="start"
-        padding="20px 40px"
+        padding="40px"
         spacing={8}
         overflowY="auto"
         height="100vh"
@@ -62,7 +62,7 @@ const Dashboard = () => {
 
         {/* Dashboard Content */}
         <Box
-          display="grid"
+          display="flex"
           gridTemplateColumns="repeat(5, 1fr)" // Match layout with HomePage
           gap={6} // Same gap size as HomePage
           width="100%"
@@ -82,7 +82,7 @@ const Dashboard = () => {
             <VStack
               spacing={4}
               align="center"
-              p={6}
+              p={8}
               w="100%"
               bg="#DFA258"
               borderRadius="lg"
@@ -96,13 +96,15 @@ const Dashboard = () => {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Text fontSize="2xl" fontWeight="bold" color="white">
-                  1
+                <Text fontSize="4xl" fontWeight="bold" color="white">
+                  4
                 </Text>
               </Box>
-              <Text fontSize="lg" fontWeight="bold" color="#367236">
-                <MdApps size="24px" style={{ display: "inline-block" }} /> Product
-              </Text>
+              <HStack spacing={2} align="center" color="#367236">
+                <MdApps size="26px"/>
+                <Text fontSize="xl" fontWeight="bold"> Product
+                </Text>
+              </HStack>
             </VStack>
           </Box>
         </Box>

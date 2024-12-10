@@ -108,8 +108,8 @@ const Regist = () => {
         <Layout>
             <HStack w={"100vw"} h={"100%"}>
                 {/* Side Section */}
-                <Box w={"30%"} bg={"#367236"} h={"100%"} display="flex" alignItems="center" justifyContent="center">
-                    <Text color={"white"} fontSize="7xl" fontWeight="medium" fontFamily="'Covered By Your Grace', cursive">UltiGear!</Text>
+                <Box w={{base: "35%", md:"30%"}} bg={"#367236"} h={"100%"} display="flex" alignItems="center" justifyContent="center">
+                    <Text color={"white"} fontSize={{base: "6xl", md:"8xl"}} fontWeight="medium" fontFamily="'Covered By Your Grace', cursive">UltiGear!</Text>
                 </Box>
 
                 {/* Form Section */}

@@ -33,10 +33,12 @@ const Product = () => {
 
   return (
     <HStack align="stretch" height="100vh" w="100vw">
+      {/* SideBar */}
       <SideBarSection />
 
+      {/* Main */}
       <Flex flex="1" align="center" justify="center" padding="20px" bg="white">
-        <VStack align="start" width="80%" spacing={6}>
+        <VStack align="start" width={{ base: "90%", md: "60%" }} spacing={6}>
           <HStack width="100%" justify="space-between">
             <IconButton
               icon={<FaArrowLeft />}
@@ -62,7 +64,7 @@ const Product = () => {
             <Image
               src="https://i.pinimg.com/474x/1c/4e/11/1c4e1138627951fde209916143318abd.jpg"
               alt="Product Image"
-              boxSize="300px"
+              boxSize={{base: "250px", md: "300px"}}
               borderRadius="md"
               boxShadow="md"
             />

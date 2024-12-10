@@ -61,6 +61,7 @@ const Cart = () => {
                             bg="#F7F3F4"
                             padding="14px"
                             spacing={6}
+                            mb={2}
                             height="auto"
                             w="full"
                         >
@@ -120,9 +121,11 @@ const Cart = () => {
                             borderRadius="md"
                             padding="26px"
                             mt={4} 
+                            mb={6}
                             spacing={4}
-                            w="full"
-                            height="20%"
+                            mx={4}
+                            w={{base: '94%', md: 'full'}}
+                            h="20%"
                         >
                             <HStack justify="space-between">
                                 <Text fontSize="lg" fontWeight="bold">Total</Text>
