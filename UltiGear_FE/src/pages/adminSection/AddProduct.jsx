@@ -34,13 +34,18 @@ const AddProduct = () => {
           <SideBarAdmin />
         </Box>
         {/* Main Section */}
-        <Box p={5} px={20} h="100vh" w="100vw" bg="#F7F3F4" overflow="auto">
+        <Box 
+          flex="1"
+          align="start"
+          p={4}
+          px={{base:4, md:16}}
+          h="100vh" bg="#F7F3F4" 
+          overflow="auto">
           {/* Header Section */}
           <HStack
             justifyContent="space-between"
             mb={4}
             p={4}
-            px={10}
             bg="#367236"
             borderRadius="md"
             boxShadow="sm"
@@ -144,7 +149,7 @@ const AddProduct = () => {
             {/* Size */}
             <FormControl>
               <HStack>
-                <FormLabel w={40}>Size</FormLabel>
+                <FormLabel w={{base:32, md:40}}>Size</FormLabel>
                 <HStack spacing={4}>
                   {["S", "M", "L", "XL"].map((size) => (
                     <Button
@@ -163,8 +168,8 @@ const AddProduct = () => {
             {/* Color */}
             <FormControl>
               <HStack>
-                <FormLabel w={40}>Color</FormLabel>
-                <HStack spacing={4}>
+                <FormLabel w={{base:32, md:40}}>Color</FormLabel>
+                <HStack spacing={2}>
                   {["Red", "Green", "Yellow", "Blue"].map((color) => (
                     <Button
                       key={color}
@@ -182,7 +187,7 @@ const AddProduct = () => {
             {/* Product Stock */}
             <FormControl>
               <HStack spacing={4}>
-                <FormLabel w={40}>Stock</FormLabel>
+                <FormLabel w={{base:32, md:40}}>Stock</FormLabel>
                 <HStack spacing={4}>
                   <Text fontSize="sm" color="gray.500">
                     Quantity:
@@ -217,7 +222,7 @@ const AddProduct = () => {
             <Button
               color="white"
               bg="#DFA258"
-              w="10%"
+              w={{base: "20%", md: "10%"}}
               variant="unstyled"
               onClick={() => navigate("/crudproduct")}
               size="md"

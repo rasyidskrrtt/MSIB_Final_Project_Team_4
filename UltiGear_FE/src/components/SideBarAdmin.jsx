@@ -17,18 +17,15 @@ const SideBarAdmin = () => {
       <Box
         bg="#367236"
         color="white"
-        width="20vw"
-        maxWidth="300px"
+        width="100%"
         h="100vh"
-        top="0"
-        position="sticky"
         paddingBlock="20px"
         display="flex"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
       >
-        <VStack align="center" width="100%" paddingInline="30px">
+        <VStack align="center" width="100%" paddingInline="48px">
           <Box textAlign="center">
             <Avatar size={"xl"} mb={"4"} />
             <Text fontSize={"lg"} mb={"8"}>
@@ -50,7 +47,7 @@ const SideBarAdmin = () => {
             _hover={{ color: "#DFA258" }}
             _active={{ bg: "#367236" }}
             position="relative"
-            pl="10"
+            pl="12"
             onClick={() => navigate("/dashboard")}
             _before={{
               content: '""',
@@ -75,7 +72,7 @@ const SideBarAdmin = () => {
             _hover={{ color: "#DFA258" }}
             _active={{ bg: "#367236" }}
             position="relative"
-            pl="10"
+            pl="12"
             onClick={() => navigate("/crudproduct")}
             _before={{
               content: '""',

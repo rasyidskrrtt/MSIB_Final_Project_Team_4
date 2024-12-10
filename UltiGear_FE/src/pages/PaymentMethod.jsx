@@ -50,7 +50,7 @@ const PaymentMethode = () => {
       bg="gray.100"
     >
       <Box
-        width={{ base: "90%", md: "500px" }}
+        width={{ base: "60%", md: "500px" }}
         padding={6}
         boxShadow="lg"
         borderRadius="lg"

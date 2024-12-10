@@ -16,7 +16,9 @@ const EditProduct = () => {
           <SideBarAdmin />
         </Box>
         {/* Main Section */}
-        <Box p={5} px={20} h="100vh" w="100vw" bg="#F7F3F4" overflow="auto">
+        <Box 
+          flex="1" align="start"
+          p={4} px={{base:4, md:16}} h="100vh" bg="#F7F3F4" overflow="auto">
           {/* Header Section */}
           <HStack justifyContent="space-between" mb={4} p={4} px={10}
             bg="#367236" borderRadius="md" boxShadow="sm">
@@ -65,7 +67,7 @@ const EditProduct = () => {
 
             <FormControl>
               <HStack>
-                <FormLabel w={40}>Size</FormLabel>
+                <FormLabel w={{base:32, md:40}}>Size</FormLabel>
                 <HStack spacing={4}>
                   {["S", "M", "L", "XL"].map((size) => (
                     <Button key={size} size="sm" variant="outline" borderColor="black">
@@ -78,7 +80,7 @@ const EditProduct = () => {
 
             <FormControl>
               <HStack>
-                <FormLabel w={40}>Color</FormLabel>
+                <FormLabel w={{base:32, md:40}}>Color</FormLabel>
                 <HStack spacing={4}>
                   {["Red", "Green", "Yellow", "Blue"].map((color) => (
                     <Button
@@ -97,7 +99,7 @@ const EditProduct = () => {
 
             <FormControl>
               <HStack>
-                <FormLabel w={40}>Product Stock</FormLabel>
+                <FormLabel w={{base:32, md:40}}>Product Stock</FormLabel>
                 <HStack>
                   <Button bg="green.600" color="white" variant="unstyled" onClick={() => setStock(stock - 1)}>-</Button>
                   <NumberInput borderColor="black" w="20"
@@ -112,7 +114,7 @@ const EditProduct = () => {
               </HStack>
             </FormControl>
 
-            <Button color="white" bg="#DFA258" w="10%" variant="unstyled"
+            <Button color="white" bg="#DFA258" w={{base: "20%", md: "10%"}} variant="unstyled"
               onClick={() => navigate("/crudproduct")} size="md" alignSelf="flex-end">
               Submit
             </Button>

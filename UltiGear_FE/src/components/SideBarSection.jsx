@@ -18,8 +18,7 @@ const SideBarSection = () => {
       <Box
         bg="#367236"
         color="white"
-        width="20vw"
-        maxWidth="300px"
+        width="100%"
         h="100vh"
         top="0"
         position="sticky"
@@ -52,7 +51,7 @@ const SideBarSection = () => {
             _active={{ bg: "#367236" }}
             position="relative"
             textAlign={"center"}
-            pl="10"
+            pl="12"
             onClick={() => navigate("/home")}
             _before={{
               content: '""',
@@ -77,7 +76,7 @@ const SideBarSection = () => {
             _hover={{ color: "#DFA258" }}
             _active={{ bg: "#367236" }}
             position="relative"
-            pl="10"
+            pl="12"
             onClick={() => navigate("/cart")}
             _before={{
               content: '""',
@@ -102,7 +101,7 @@ const SideBarSection = () => {
             _hover={{ color: "#DFA258" }}
             _active={{ bg: "#367236" }}
             position="relative"
-            pl="10"
+            pl="12"
             mb={"3"}
             onClick={() => navigate("/myorders")}
             _before={{
@@ -129,7 +128,7 @@ const SideBarSection = () => {
             _hover={{ color: "#DFA258" }}
             _active={{ bg: "#367236" }}
             position="relative"
-            pl="10"
+            pl="12"
             mt={"3"}
             onClick={() => navigate("/editprofile")}
             _before={{
