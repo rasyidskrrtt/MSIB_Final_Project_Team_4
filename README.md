@@ -57,4 +57,3 @@ npm start
 ## 💬 Hubungi Kami
 Jika Anda memiliki pertanyaan atau saran, jangan ragu untuk menghubungi kami melalui email:
 - **Email Kapten**: yogi290617@gmail.com 
-# MSIB_Final_Project_Team_4
