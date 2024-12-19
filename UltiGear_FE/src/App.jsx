@@ -6,28 +6,56 @@ import Cart from "./pages/Cart";
 import MyOrders from "./pages/MyOrders";
 import EditProfile from "./pages/EditProfile";
 import Product from "./pages/Product";
-import PaymentMethod from "./pages/PaymentMethod";
-import Dashboard from "./pages/adminSection/Dashboard"; 
+// import PaymentSucces from "./pages/PaymentSucces";
+// import PaymentMethod from "./pages/PaymentMethod";
+
+import Dashboard from "./pages/adminSection/Dashboard";
 import CrudProduct from "./pages/adminSection/CrudProduct";
 import AddProduct from "./pages/adminSection/AddProduct";
 import EditProduct from "./pages/adminSection/EditProduct";
+import NotFound from "./pages/NotFound";
+import { getDecodeToken } from "./utilities/decodeToken";
 
 function App() {
+  const user = getDecodeToken();
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/regist" element={<Regist />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/myorders" element={<MyOrders />} />
-        <Route path="/editprofile" element={<EditProfile />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/paymentmethod" element={<PaymentMethod />} />
-        <Route path="/dashboard" element={<Dashboard />} /> 
-        <Route path="/crudproduct" element={<CrudProduct />} /> 
-        <Route path="/addproduct" element={<AddProduct />} />
-        <Route path="/editproduct" element={<EditProduct />} />  
+        {user ? (
+          <>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/myorders" element={<MyOrders />} />
+            <Route path="/editprofile" element={<EditProfile />} />
+            <Route path="/product/:productId" element={<Product />} />
+            {/* <Route path="/paymentsucces" element={<PaymentSucces />} /> */}
+            {/* <Route path="/paymentmethod" element={<PaymentMethod />} /> */}
+
+            {/* admin routers */}
+            {user?.userRole === "ADMIN" && (
+              <>
+                <Route path="/admin/" element={<Dashboard />} />
+                <Route path="/admin/products" element={<CrudProduct />} />
+                <Route path="/admin/products/create" element={<AddProduct />} />
+                <Route
+                  path="/admin/products/edit/:productId"
+                  element={<EditProduct />}
+                />
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/regist" element={<Regist />} />
+          </>
+        )}
+
+        {/* Rute tangkap-semua untuk jalur yang tidak ditentukan */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

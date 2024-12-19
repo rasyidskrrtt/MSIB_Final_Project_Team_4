@@ -1,76 +1,87 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Layout from "./Layout";
-import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  Image,
+  VStack,
+  Input,
+  InputGroup,
+  InputRightAddon,
+  Text,
+} from "@chakra-ui/react";
 import SideBarSection from "../components/SideBarSection";
 import { FiPlusCircle } from "react-icons/fi";
-import Search from "../components/Search";
-import { useNavigate } from "react-router-dom";
+import { IoSearch } from "react-icons/io5";
+import emptyImage from "../assets/empty.jpg";
+import { useHttp } from "../hooks/http";
+import { getDecodeToken } from "../utilities/decodeToken";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { handleGetTableDataRequest, handlePostRequest } = useHttp();
+  const user = getDecodeToken();
 
-  const [cart, setCart] = useState([]); 
+  const [products, setProducts] = useState([]);
+  const [keyword, setKeyword] = useState("");
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 25,
+    page: 0,
+  });
 
-  const products = [
-    {
-      name: "Jaket Himalaya",
-      price: 400000, // Harga dalam IDR
-      image: "https://via.placeholder.com/200x150?text=Jaket+Himalaya",
-    },
-    {
-      name: "Tenda Gunung",
-      price: 700000, // Harga dalam IDR
-      image: "https://via.placeholder.com/200x150?text=Tenda+Gunung",
-    },
-    {
-      name: "Sepatu Pendakian",
-      price: 600000, // Harga dalam IDR
-      image: "https://via.placeholder.com/200x150?text=Sepatu+Pendakian",
-    },
-    {
-      name: "Senter Outdoor",
-      price: 150000, // Harga dalam IDR
-      image: "https://via.placeholder.com/200x150?text=Senter+Outdoor",
-    },
-    {
-      name: "Tas Ransel Hiking",
-      price: 500000, // Harga dalam IDR
-      image: "https://via.placeholder.com/200x150?text=Tas+Ransel+Hiking",
-    },
-    {
-      name: "Jakarta Jacket",
-      price: 450000, // Harga dalam IDR
-      image: "https://via.placeholder.com/200x150?text=Jakarta+Jacket",
-    },
-    {
-      name: "Pelindung Hujan Ponco",
-      price: 250000, // Harga dalam IDR
-      image: "https://via.placeholder.com/200x150?text=Pelindung+Hujan+Ponco",
-    },
-    {
-      name: "Sleeping Bag Travel",
-      price: 800000, // Harga dalam IDR
-      image: "https://via.placeholder.com/200x150?text=Sleeping+Bag+Travel",
-    },
-    {
-      name: "Matras Tidur",
-      price: 300000, // Harga dalam IDR
-      image: "https://via.placeholder.com/200x150?text=Matras+Tidur",
-    },
-    {
-      name: "Kompas Navigation",
-      price: 200000, // Harga dalam IDR
-      image: "https://via.placeholder.com/200x150?text=Kompas+Navigation",
-    },
-  ];  
-
-  const handleAddToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]); 
-    navigate("/product"); 
+  // Function to fetch query params
+  const getQueryParam = (param) => {
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get(param);
   };
 
-  const handleProductClick = () => {
-    // navigate("/Product"); 
+  const getTableData = async ({ keyword }) => {
+    const filter = {};
+
+    if (keyword) {
+      filter["keyword"] = keyword;
+    }
+
+    try {
+      const result = await handleGetTableDataRequest({
+        path: "/products",
+        page: paginationModel.page ?? 0,
+        size: paginationModel.pageSize ?? 10,
+        filter: filter,
+      });
+
+      if (result) {
+        console.log(result);
+        setProducts(result.products);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSearch = () => {
+    navigate(`?keyword=${keyword}`); // Updates the URL with the query
+    getTableData({ keyword });
+  };
+
+  useEffect(() => {
+    const queryKeyword = getQueryParam("keyword") || "";
+    setKeyword(queryKeyword);
+    getTableData({ keyword: queryKeyword });
+  }, [location.search]); // Re-run when query parameters change
+
+  const handleAddToCart = async (productId) => {
+    const payload = { product_id: productId, user_id: user.id };
+
+    await handlePostRequest({ path: "/cart", body: payload });
+    navigate("/cart");
+    window.location.reload();
+  };
+
+  const handleProductClick = (productId) => {
+    navigate(`/product/${productId}`);
   };
 
   return (
@@ -82,13 +93,38 @@ const HomePage = () => {
         <VStack
           flex="1"
           align="start"
-          padding="30px"
+          padding="20px"
           spacing={8}
           overflowY="auto"
-          height="100vh"
+          height={{ base: "calc(100vh - 80px)", md: "100vh" }}
+          py={10}
         >
-          {/* Header */}
-          <Search />
+          {/* Header with Search */}
+          <HStack width="100%" justifyContent="space-between">
+            <Text
+              color={"#367236"}
+              fontSize="3xl"
+              fontWeight="medium"
+              fontFamily="'Covered By Your Grace', cursive"
+            >
+              UltiGear!
+            </Text>
+            <InputGroup width={"40%"} borderColor={"black"}>
+              <Input
+                placeholder="Search on Here"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+              />
+              <InputRightAddon
+                bgColor={"#367236"}
+                color={"white"}
+                onClick={handleSearch}
+                cursor="pointer"
+              >
+                <IoSearch />
+              </InputRightAddon>
+            </InputGroup>
+          </HStack>
 
           {/* Banner */}
           <Box
@@ -118,23 +154,37 @@ const HomePage = () => {
                 orientation="vertical"
                 borderColor="white"
                 height="100%"
-                borderWidth={{ base: "2px", md: "3px" }}
+                borderWidth="3px"
                 borderRadius="5px"
               />
               <Text
                 fontSize={{ base: "xl", md: "3xl" }}
                 fontFamily="'Poppins', cursive"
               >
-                Your Adventure Partner Stats Here
+                Your Adventure Partner Start Here
               </Text>
             </HStack>
           </Box>
 
-          {/* Product Card */}
+          {/* Empty State */}
+          {Array.isArray(products) && products.length === 0 && (
+            <div style={{ textAlign: "center", marginTop: "20px" }}>
+              <img
+                src={emptyImage}
+                alt="No Products"
+                style={{ width: "250px", height: "auto" }}
+              />
+              <p style={{ fontSize: "18px", color: "#555", marginTop: "10px" }}>
+                Product Not Found!
+              </p>
+            </div>
+          )}
+
+          {/* Product Grid */}
           <Box
             display="grid"
-            gridTemplateColumns={{ base: "repeat(2, 1fr)", md: "repeat(5, 1fr)" }} 
-            gap={6} 
+            gridTemplateColumns={{ base: "repeat(2, 1fr)", md: "repeat(5, 1fr)" }}
+            gap={6}
             width="100%"
           >
             {products.map((product, idx) => (
@@ -150,51 +200,42 @@ const HomePage = () => {
                 justifyContent="space-between"
                 overflow="hidden"
               >
-                {/* Product Image */}
                 <Image
-                  src={product.image}
+                  src={
+                    product.image_url ??
+                    ""  //delete
+                  }
                   alt={product.name}
                   width="100%"
-                  height="150px"
+                  height="100%"
                   objectFit="cover"
                   bgColor="gray.200"
                   cursor="pointer"
-                  onClick={handleProductClick} 
+                  onClick={() => handleProductClick(product._id)}
                 />
-
-                {/* Product Details */}
                 <VStack align="start" spacing={1} width="100%" p={3} bg="white">
                   <Text fontSize="sm" fontWeight="medium">
                     {product.name}
                   </Text>
                   <Text color="green.600" fontWeight="bold" fontSize="md">
-                    Rp {product.price.toLocaleString()} {/* Menampilkan harga dalam format IDR */}
+                    Rp {product.price.toLocaleString()}
                   </Text>
                 </VStack>
-
-                {/* Add to Cart Icon */}
                 <Box
                   as="button"
                   position="absolute"
                   bottom="10px"
                   right="10px"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
                   bg="#367236"
                   color="white"
                   width="30px"
                   height="30px"
                   borderRadius="full"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
                   cursor="pointer"
-                  boxShadow="lg"
-                  transition="all 0.3s ease"
-                  _hover={{
-                    bg: "green.700",
-                    transform: "scale(1.1)",
-                    boxShadow: "xl",
-                  }}
-                  onClick={() => handleAddToCart(product)} // Tambahkan ke keranjang dan arahkan ke /cart
+                  onClick={() => handleAddToCart(product._id)}
                 >
                   <FiPlusCircle size="24px" />
                 </Box>
