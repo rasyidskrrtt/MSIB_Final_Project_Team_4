@@ -1,63 +1,79 @@
-Untuk memodifikasi kode agar memungkinkan pencarian berdasarkan nama produk, Anda dapat menambahkan parameter kueri untuk kata kunci pencarian pada permintaan, lalu menggunakannya untuk memfilter produk berdasarkan kolom nama. Berikut langkah-langkahnya:
+# Panduan Setup Backend UltiGear
 
-### Kode yang Diperbarui:
-```javascript
-getAllProducts: async (req, res) => {
-    try {
-        // Ambil parameter kueri 'search' dari permintaan (jika ada)
-        const { search } = req.query;
+Panduan ini akan membantu Anda mengatur aplikasi Backend UltiGear secara lokal.
 
-        // Bangun objek filter untuk kueri
-        const filter = search ? { name: { $regex: search, $options: 'i' } } : {};
+---
 
-        // Temukan produk dengan filter pencarian opsional
-        const products = await models.Product.find(filter);
+## Langkah-Langkah Instalasi
 
-        return ResponseAPI.success(res, { products }, 'Produk berhasil diambil');
-    } catch (err) {
-        return ResponseAPI.serverError(res, err);
-    }
-},
-```
+Ikuti langkah-langkah berikut untuk menjalankan aplikasi di komputer Anda:
 
-### Penjelasan:
-1. **`search`:** Parameter ini diambil dari string kueri permintaan. Jika tersedia, digunakan untuk memfilter produk berdasarkan nama dengan pencocokan parsial (partial match).
-2. **`$regex`:** Query ekspresi reguler memungkinkan pencocokan parsial, sedangkan `options: 'i'` membuat pencarian tidak peka huruf besar-kecil (case-insensitive).
-3. **`filter`:** Jika tidak ada parameter pencarian, kode akan menggunakan filter kosong `{}`, yang berarti tidak ada penyaringan.
+1. **Kloning Repository**
 
-### Contoh Permintaan untuk API:
-Misalnya, jika endpoint API Anda adalah `/api/products`, berikut contoh permintaannya:
+   ```bash
+   git clone <repository-url>
+   ```
 
-- **Pencarian dengan kata kunci (misalnya, nama produk mengandung "phone"):**
+2. **Pindah ke Branch Backend**
 
-  ```http
-  GET /api/products?search=phone
-  ```
+   ```bash
+   git checkout backend
+   ```
 
-- **Permintaan tanpa filter pencarian (mengambil semua produk):**
+3. **Masuk ke Direktori Proyek**
 
-  ```http
-  GET /api/products
-  ```
+   Tampilkan file dalam repository untuk menemukan direktori `UltiGear_BE`:
 
-### Contoh Menggunakan `fetch` di JavaScript:
-```javascript
-// Contoh menggunakan JavaScript Fetch API untuk mengakses endpoint
-async function getProducts(searchTerm) {
-  const url = new URL('https://your-api-url/api/products');
-  if (searchTerm) {
-    url.searchParams.append('search', searchTerm);
-  }
+   ```bash
+   ls
+   ```
 
-  const response = await fetch(url);
-  const data = await response.json();
+   Masuk ke direktori `UltiGear_BE`:
 
-  console.log(data);
-}
+   ```bash
+   cd UltiGear_BE/
+   ```
 
-// Contoh penggunaan
-getProducts('phone');  // Cari produk dengan kata "phone" pada namanya
-```
+4. **Instalasi Dependensi**
 
-### Kesimpulan:
-Kode ini memenuhi kebutuhan Anda untuk menambahkan fungsi pencarian ke API dan menyediakan cara bersih untuk mencari produk berdasarkan nama. Anda dapat memodifikasi lebih lanjut jika perlu, misalnya menambahkan validasi pada input parameter `search`.
+   Jalankan perintah berikut untuk menginstal semua paket yang diperlukan:
+
+   ```bash
+   npm install
+   ```
+
+5. **Jalankan Server Pengembangan**
+
+   Mulai aplikasi backend dalam mode pengembangan:
+
+   ```bash
+   npm run dev
+   ```
+
+   Server backend akan berjalan pada URL yang ditentukan (biasanya `http://localhost:5000`).
+
+---
+
+## Tentang Proyek
+
+### Teknologi yang Digunakan
+
+Backend UltiGear dibangun menggunakan teknologi berikut:
+
+- **Node.js**: Runtime JavaScript untuk membangun aplikasi backend yang cepat dan ringan.
+- **Express.js**: Framework untuk membangun API yang kuat dan modular.
+- **MongoDB**: Basis data NoSQL untuk menyimpan data secara fleksibel.
+
+### Struktur Proyek
+
+Struktur direktori utama:
+
+- `controllers/`: Berisi logika aplikasi dan pengolahan data.
+- `routes/`: Menangani routing untuk setiap endpoint API.
+- `models/`: Berisi definisi skema database menggunakan Mongoose.
+- `config/`: Pengaturan dan konfigurasi seperti koneksi database.
+
+---
+
+Selamat coding dengan **UltiGear Backend**!
+
