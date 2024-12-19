@@ -50,7 +50,7 @@ Ikuti langkah-langkah berikut untuk menjalankan aplikasi di komputer Anda:
    npm run dev
    ```
 
-   Setelah server berjalan, Anda dapat mengakses aplikasi melalui browser pada URL yang diberikan (biasanya `http://localhost:3000`).
+   Setelah server berjalan, Anda dapat mengakses aplikasi melalui browser pada URL yang diberikan (biasanya `http://localhost:2828`).
 
 ---
 
