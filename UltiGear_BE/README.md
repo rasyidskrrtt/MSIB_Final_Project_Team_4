@@ -50,7 +50,7 @@ Ikuti langkah-langkah berikut untuk menjalankan aplikasi di komputer Anda:
    npm run dev
    ```
 
-   Server backend akan berjalan pada URL yang ditentukan (biasanya `http://localhost:5000`).
+   Server backend akan berjalan pada URL yang ditentukan (biasanya `http://localhost:2828`).
 
 ---
 
@@ -68,10 +68,23 @@ Backend UltiGear dibangun menggunakan teknologi berikut:
 
 Struktur direktori utama:
 
-- `controllers/`: Berisi logika aplikasi dan pengolahan data.
-- `routes/`: Menangani routing untuk setiap endpoint API.
-- `models/`: Berisi definisi skema database menggunakan Mongoose.
-- `config/`: Pengaturan dan konfigurasi seperti koneksi database.
+- `src/`
+  - `config/`: Pengaturan dan konfigurasi seperti koneksi database.
+  - `controllers/`: Berisi logika aplikasi dan pengolahan data.
+  - `middleware/`: Middleware untuk menangani request sebelum mencapai controller.
+  - `models/`: Berisi definisi skema database menggunakan Mongoose.
+  - `routes/`: Menangani routing untuk setiap endpoint API.
+  - `seeders/`: Berisi file untuk mengisi data awal ke database.
+  - `utils/`: Fungsi utilitas umum yang digunakan dalam aplikasi.
+  - `app.js`: File utama untuk menginisialisasi aplikasi.
+
+- `.env`: File konfigurasi lingkungan untuk variabel-variabel sensitif.
+- `.env.example`: Contoh file konfigurasi lingkungan.
+- `.gitignore`: File untuk mengecualikan file/direktori tertentu dari Git.
+- `package.json`: Berisi metadata proyek dan dependensi yang dibutuhkan.
+- `package-lock.json`: File yang mencatat versi pasti dari dependensi.
+- `randomString.js`: File utilitas untuk menghasilkan string acak.
+- `README.md`: Dokumentasi proyek.
 
 ---
 
