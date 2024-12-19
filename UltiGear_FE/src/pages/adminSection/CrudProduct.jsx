@@ -1,100 +1,101 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../Layout";
 import SideBarAdmin from "../../components/SideBarAdmin";
-import {Box, Button, HStack, Image, Table, Tbody, Td, Th, Thead, Tr, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  HStack,
+  Image,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  Text,
+} from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { useHttp } from "../../hooks/http";
 
 const CrudProduct = () => {
   const navigate = useNavigate();
+  const { handleGetTableDataRequest, handleRemoveRequest } = useHttp();
 
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      name: "Sepatu Hiking",
-      category: "Sepatu", // Category added
-      image: "https://via.placeholder.com/60",
-      description: "Sepatu hiking nyaman untuk berbagai medan.",
-      price: "$40",
-      size: "M", // Single size selected
-      color: "Blue", // Single color selected
-      stock: 15, // Stock added
-    },
-    {
-      id: 2,
-      name: "Jaket Himalaya",
-      category: "Jaket", // Category added
-      image: "https://via.placeholder.com/60",
-      description: "Jaket gunung yang tahan air dan tahan angin.",
-      price: "$60",
-      size: "L", // Single size selected
-      color: "Red", // Single color selected
-      stock: 10, // Stock added
-    },
-    {
-      id: 3,
-      name: "Tenda Paralel",
-      category: "Tenda", // Category added
-      image: "https://via.placeholder.com/60",
-      description: "Tenda yang mampu menampung beberapa orang.",
-      price: "$100",
-      size: "XL", // Single size selected
-      color: "Yellow", // Single color selected
-      stock: 20, // Stock added
-    },
-    {
-      id: 4,
-      name: "Tas Gunung",
-      category: "Tas", // Category added
-      image: "https://via.placeholder.com/60",
-      description: "Tas yang cukup memuat alat campingmu.",
-      price: "$80",
-      size: "M", // Single size selected
-      color: "Black", // Single color selected
-      stock: 10, // Stock added
-    },
-  ]);
+  const [rowCount, setRowCount] = useState(0);
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 25,
+    page: 0,
+  });
 
-  const handleDelete = (id) => {
-    setProducts(products.filter((product) => product.id !== id));
+  const [products, setProducts] = useState([]);
+
+  const getTableData = async ({ search }) => {
+    try {
+      const result = await handleGetTableDataRequest({
+        path: "/products",
+        page: paginationModel.page ?? 0,
+        size: paginationModel.pageSize ?? 10,
+        filter: { search },
+      });
+      if (result) {
+        console.log(result);
+        setProducts(result.products);
+        // setRowCount(result.totalItems);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async (productId) => {
+    await handleRemoveRequest({
+      path: "/products/" + productId,
+    });
+    getTableData({ search: "" });
   };
 
   const handleEdit = (id) => {
-    navigate(`/editproduct/${id}`);
+    navigate(`/admin/products/edit/${id}`);
   };
 
   const handleAddProduct = () => {
-    navigate("/addproduct");
+    navigate("/admin/products/create");
   };
+
+  useEffect(() => {
+    getTableData({ search: "" });
+  }, []);
 
   return (
     <Layout>
-      <HStack height="100vh" w="100vw" align="stretch" spacing={0}>
-        {/* Sidebar */}
-        <Box>
-          <SideBarAdmin />
-        </Box>
-      
-      {/* Main Section */}
+      <HStack height="100vh" w="100%" align="stretch" spacing={0}
+        wrap={{ base: "wrap", md: "nowrap" }}
+      >
+        <SideBarAdmin />
+
         <Box
-          flex="1"
-          align="stretch"
-          p={4} px={{base:4, md:16}}
-          h="100vh"
+          p={{ base: "50px 30px", md: 10 }}
+          width="100%"
           overflowY="auto"
+          overflowX="auto"
+          height={{ base: "calc(100vh - 80px)", md: "100vh" }}
         >
           <HStack
             justifyContent="space-between"
             mb={4}
             p={4}
-            px={10}
+            px={{ base: 6, md: 10 }}
             bg="#367236"
             borderRadius="md"
             boxShadow="sm"
-            w={{base:"136vw", md:"100%"}}
+            wrap={{ base: "wrap", md: "nowrap" }}
+            position="sticky"
+            top="0"
+            zIndex="1" 
           >
             <Text
               color="white"
-              fontSize="4xl"
+              fontSize={{ base: "2xl", md: "4xl" }}
               fontWeight="sm"
               fontFamily="'Covered By Your Grace', cursive"
             >
@@ -103,7 +104,7 @@ const CrudProduct = () => {
             <Button
               color="white"
               bg="#DFA258"
-              w={{base: "20%", md: "10%"}}
+              w={{ base: "30%", md: "20%", lg: "10%"}}
               variant="unstyled"
               onClick={handleAddProduct}
             >
@@ -112,50 +113,53 @@ const CrudProduct = () => {
           </HStack>
 
           {/* Table Section */}
+          <Box
+            overflowX="auto" 
+            w="100%" 
+            h="100%"
+            overflowY="auto"
+            transform='scale(1)'
+            transformOrigin="top left"
+          >
           <Table
             variant="striped"
             colorScheme="black"
             borderRadius="md"
             boxShadow="sm"
           >
-            <Thead bg="teal.800">
-              <Tr>
-                <Th color="white" textAlign="center">No</Th>
-                <Th color="white">Name</Th>
-                <Th color="white" textAlign="center">Category</Th>
-                <Th color="white">Description</Th>
-                <Th color="white" textAlign="center">Image</Th>
-                <Th color="white" textAlign="center">Price</Th>
-                <Th color="white" textAlign="center">Size</Th>
-                <Th color="white" textAlign="center">Color</Th>
-                <Th color="white" textAlign="center">Stock</Th>
-                <Th color="white" textAlign="center">Actions</Th>
+            <Thead bg="teal.800" position="sticky" top="0" zIndex="1">
+              <Tr position="sticky" top="0" zIndex="1">
+                <Th color="white" position="sticky" top="0" zIndex="1" >Name</Th>
+                <Th color="white" position="sticky" top="0" zIndex="1" >Category</Th>
+                <Th color="white" position="sticky" top="0" zIndex="1" >Description</Th>
+                <Th color="white" position="sticky" top="0" zIndex="1" >Image</Th>
+                <Th color="white" position="sticky" top="0" zIndex="1" >Price</Th>
+                <Th color="white" position="sticky" top="0" zIndex="1" >Size</Th>
+                <Th color="white" position="sticky" top="0" zIndex="1" >Color</Th>
+                <Th color="white" position="sticky" top="0" zIndex="1" >Stock</Th>
+                <Th color="white" textAlign="center" position="sticky" top="0" zIndex="1" >Actions</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {products.map((product, index) => (
-                <Tr key={product.id}
-                  bg={index % 2 === 1 ? "gray.100" : "white"}
-                >
-                  <Td w={4}>{product.id}</Td>
-                  <Td w={10}>{product.name}</Td>
-                  <Td w={8} textAlign="center">{product.category}</Td>
-                  <Td w={56}>{product.description}</Td>
-                  <Td w={48} justifyContent="center" alignItems="center">
+              {products.map((product) => (
+                <Tr key={product.id}>
+                  <Td>{product.name}</Td>
+                  <Td>{product.category}</Td>
+                  <Td>{product.description}</Td>
+                  <Td>
                     <Image
-                      src={product.image}
+                      src={product.image_url}
                       alt={product.name}
-                      boxSize="80px"
+                      boxSize="40px"
                       objectFit="cover"
                       borderRadius="md"
-                      margin="auto"
                     />
                   </Td>
-                  <Td w={8} textAlign="center">{product.price}</Td>
-                  <Td w={4} textAlign="center">{product.size}</Td>
-                  <Td w={6} textAlign="center">{product.color}</Td>
-                  <Td w={4} textAlign="center">{product.stock}</Td>
-                  <Td>
+                  <Td>{product.price}</Td>
+                  <Td>{product.size}</Td>
+                  <Td>{product.color}</Td>
+                  <Td>{product.stock}</Td>
+                  <Td textAlign="center">
                     <HStack spacing={2}>
                       <Button
                         bg="#367236"
@@ -163,7 +167,7 @@ const CrudProduct = () => {
                         size="sm"
                         variant="unstyled"
                         px={4}
-                        onClick={() => handleEdit(product.id)}
+                        onClick={() => handleEdit(product._id)}
                       >
                         Edit
                       </Button>
@@ -173,7 +177,7 @@ const CrudProduct = () => {
                         size="sm"
                         variant="unstyled"
                         px={4}
-                        onClick={() => handleDelete(product.id)}
+                        onClick={() => handleDelete(product._id)}
                       >
                         Delete
                       </Button>
@@ -183,6 +187,7 @@ const CrudProduct = () => {
               ))}
             </Tbody>
           </Table>
+          </Box>
         </Box>
       </HStack>
     </Layout>
